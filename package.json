@@ -1,36 +1,37 @@
 {
-  "name": "frontskeleton",
-  "description": "FrontSkeleton",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Maxwellewxam/FrontSkeleton.git"
-  },
-  "version": "2.0.0",
-  "main": "dist/index.html",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Maxwellewxam",
-  "license": "ISC",
-  "devDependencies": {
-    "grunt": "*",
-    "grunt-cleanempty": "^1.0.3",
-    "grunt-contrib-clean": "*",
-    "grunt-contrib-concat": "*",
-    "grunt-contrib-copy": "*",
-    "grunt-contrib-cssmin": "*",
-    "grunt-contrib-imagemin": "*",
-    "grunt-contrib-uglify": "*",
-    "grunt-contrib-watch": "*",
-    "grunt-curl": "*",
-    "grunt-newer": "*",
-    "grunt-sass": "*",
-    "grunt-trigger-lr": "*",
-    "load-grunt-tasks": "*"
-  },
-  "dependencies": {
-    "bourbon": "^4.2.5",
-    "jquery": "^2.1.4",
-    "normalize.css": "^3.0.3"
-  }
+	"name": "front-skeleton",
+	"description": "Front Skeleton",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Maxwellewxam/Front_Skeleton.git"
+	},
+	"version": "2.0.0",
+	"main": "dist/index.html",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "Maxwellewxam",
+	"license": "ISC",
+	"devDependencies": {
+		"grunt": "*",
+		"grunt-cleanempty": "*",
+		"grunt-contrib-clean": "*",
+		"grunt-contrib-concat": "*",
+		"grunt-contrib-copy": "*",
+		"grunt-contrib-cssmin": "*",
+		"grunt-contrib-imagemin": "*",
+		"grunt-contrib-uglify": "*",
+		"grunt-contrib-watch": "*",
+		"grunt-curl": "*",
+		"grunt-newer": "*",
+		"grunt-sass": "*",
+		"grunt-trigger-lr": "*",
+		"load-grunt-tasks": "*"
+	},
+	"dependencies": {
+		"bourbon": "^4.2.5",
+		"bourbon-neat": "^1.7.2",
+		"jquery": "^2.1.4",
+		"normalize.css": "^3.0.3"
+	}
 }

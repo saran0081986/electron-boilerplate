@@ -32,11 +32,17 @@ module.exports = function (grunt) {
 						dest: "<%= paths.src.css %>/scss/mixins/bourbon"
 					},
 					{
-						src: "node_modules/jquery/dist/jquery.min.js",
+						expand: true,
+						cwd: "./node_modules/bourbon-neat/app/assets/stylesheets",
+						src: ["**/*"],
+						dest: "<%= paths.src.css %>/scss/mixins/neat"
+					},
+					{
+						src: "./node_modules/jquery/dist/jquery.min.js",
 						dest: "<%= paths.dist.js %>/jquery.js"
 					},
 					{
-						src: "node_modules/normalize.css/normalize.css",
+						src: "./node_modules/normalize.css/normalize.css",
 						dest: "<%= paths.src.css %>/css/normalize.css"
 					}
 				]

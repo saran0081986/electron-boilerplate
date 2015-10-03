@@ -92,12 +92,12 @@ mark {
 	$current-color : get-color($color-type);
 
 	.text-#{$color-type} {
-		color: $current-color;
+		color : $current-color;
 	}
 }
 
 .text-gray-darker {
-	color: $gray-darker;
+	color : $gray-darker;
 }
 
 .text-gray-dark {

@@ -1,5 +1,4 @@
 @import "loader";
-@import "general_settings/grid";
 @import "general_settings/typography";
 @import "general_settings/utilities";
 @import "partials/elements";
@@ -10,6 +9,5 @@ html, body, #container, #main {
 }
 
 *, *:after, *:before {
-	box-sizing: border-box;
-	font-size : get-font-size("df");
+	box-sizing : border-box;
 }

@@ -1,3 +1,4 @@
 src/css/scss/mixins/bourbon
+src/css/scss/mixins/neat
 src/css/css/normalize.css
 dist/assets/js/jquery.js
