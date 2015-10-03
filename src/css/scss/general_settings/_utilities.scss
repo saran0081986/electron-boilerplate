@@ -1,0 +1,52 @@
+// Visibility
+
+.show {
+	display: block !important;
+}
+.hidden {
+	display: none !important;
+	visibility: hidden !important;
+}
+.invisible {
+	visibility: hidden;
+}
+
+// Responsive
+
+@each $breakpoint in $breakpoints {
+
+	$suffix: #{nth($breakpoint, 1)};
+
+	@media (min-width: nth(nth($breakpoint, 2), 1)) and (max-width: nth(nth($breakpoint, 2), 2)) {
+
+		.hidden-#{$suffix} {
+			display: none !important;
+		}
+		.visible-#{$suffix}, .visible-#{$suffix}-block {
+			display: block !important;
+		}
+		table.visible-#{$suffix} {
+			display: table;
+		}
+		tr.visible-#{$suffix} {
+			display: table-row !important;
+		}
+		th.visible-#{$suffix},
+		td.visible-#{$suffix} {
+			display: table-cell !important;
+		}
+		.visible-#{$suffix}-inline {
+			display: inline !important;
+		}
+		.visible-#{$suffix}-inline-block {
+			display: inline-block !important;
+		}
+	}
+
+	.visible-#{$suffix},
+	.visible-#{$suffix}-block,
+	.visible-#{$suffix}-inline,
+	.visible-#{$suffix}-inline-block {
+		display: none !important;
+	}
+}
