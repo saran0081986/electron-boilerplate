@@ -1,6 +1,7 @@
 module.exports = function (grunt) {
 
 	require("load-grunt-tasks")(grunt);
+	var fs = require("fs");
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON("package.json"),
@@ -20,7 +21,8 @@ module.exports = function (grunt) {
 			aloneDirName: "alone",
 			minimizedDirName: "min",
 			concatenatedFileName: "min",
-			imageExtensions: "{png,jpg,gif,svg}"
+			imageExtensions: "{png,jpg,gif,svg}",
+			uglifyMangleExceptionFile: "<%= paths.src.js %>/mangle-exceptions.json"
 		},
 		copy: {
 			init: {
@@ -56,7 +58,6 @@ module.exports = function (grunt) {
 	});
 
 	var dependencies = [];
-
 	grunt.config.get("copy.init.files").forEach(function (file) {
 		dependencies.push(file.dest);
 	});
@@ -67,16 +68,18 @@ module.exports = function (grunt) {
 	grunt.config.merge({
 		uglify: {
 			options: {
-				mangle: false,
+				mangle: {
+					except: grunt.file.readJSON(grunt.config.get("paths.uglifyMangleExceptionFile"), {encoding: "utf8"})
+				},
 				screwIE8: true
 			},
-			minimize: {
+			compute: {
 				expand: true,
 				cwd: "<%= paths.src.js %>/js",
 				src: ["**/*.js", "!<%= paths.aloneDirName %>/**/*.js"],
 				dest: "<%= paths.src.js %>/<%= paths.minimizedDirName %>"
 			},
-			minimizeAlone: {
+			computeAlone: {
 				expand: true,
 				cwd: "<%= paths.src.js %>/js/<%= paths.aloneDirName %>/",
 				src: ["**/*.js"],
@@ -105,6 +108,14 @@ module.exports = function (grunt) {
 				cwd: "<%= paths.src.css %>/css/<%= paths.aloneDirName %>/",
 				src: ["**/*.css"],
 				dest: "<%= paths.src.css %>/<%= paths.minimizedDirName %>/<%= paths.aloneDirName %>"
+			},
+			combineCss: {
+				files: {
+					"<%= paths.src.css %>/<%= paths.minimizedDirName %>/<%= paths.concatenatedFileName %>.css": [
+						"<%= paths.src.css %>/<%= paths.minimizedDirName %>/**/*.css",
+						"!<%= paths.src.css %>/<%= paths.minimizedDirName %>/<%= paths.aloneDirName %>/**/*.css"
+					]
+				}
 			}
 		},
 		imagemin: {
@@ -121,14 +132,6 @@ module.exports = function (grunt) {
 					"<%= paths.src.js %>/<%= paths.minimizedDirName %>/**/*.js",
 					"!<%= paths.src.js %>/<%= paths.minimizedDirName %>/<%= paths.aloneDirName %>/**/*.js"
 				]
-			},
-			combineCss: {
-				files: {
-					"<%= paths.src.css %>/<%= paths.minimizedDirName %>/<%= paths.concatenatedFileName %>.css": [
-						"<%= paths.src.css %>/<%= paths.minimizedDirName %>/**/*.css",
-						"!<%= paths.src.css %>/<%= paths.minimizedDirName %>/<%= paths.aloneDirName %>/**/*.css"
-					]
-				}
 			}
 		},
 		copy: {
@@ -171,28 +174,26 @@ module.exports = function (grunt) {
 				dest: "<%= paths.dist.img %>"
 			}
 		},
-		trigger_lr: {
-			css: {
-				options: {
-					paths: ["<%= paths.src.css %>/**/*.css"]
-				}
-			}
-		},
 		watch: {
+			uglifyMangleExceptionFiles: {
+				files: [grunt.config.get("paths.uglifyMangleExceptionFile")],
+				tasks: ["uglify:compute", "uglify:computeAlone"],
+				options: {spawn: false, reload: true}
+			},
 			js: {
 				files: ["<%= paths.src.js %>/js/**/*.js"],
 				tasks: ["js"],
-				options: {spawn: false, livereload: true}
+				options: {spawn: false}
 			},
 			scss: {
 				files: ["<%= paths.src.css %>/scss/**/*.scss"],
-				tasks: ["scss", "css", "trigger_lr:css"],
+				tasks: ["scss", "css"],
 				options: {spawn: false}
 			},
 			css: {
 				files: ["<%= paths.src.css %>/css/**/*.css"],
 				tasks: ["css"],
-				options: {spawn: false, livereload: true}
+				options: {spawn: false}
 			},
 			img: {
 				files: ["<%= paths.src.img %>/img/**/*.<%= paths.imageExtensions %>"],
@@ -202,7 +203,7 @@ module.exports = function (grunt) {
 			html: {
 				files: ["**/*.html"],
 				tasks: [],
-				options: {spawn: false, livereload: true}
+				options: {spawn: false}
 			}
 		},
 		clean: {
@@ -230,14 +231,28 @@ module.exports = function (grunt) {
 				"<%= paths.distDir %>/**",
 				"<%= paths.srcDir %>/**"
 			]
+		},
+		browserSync: {
+			server: {
+				bsFiles: {
+					src: [
+						'<%= paths.dist.css %>/**/*.css',
+						'<%= paths.distDir %>/**/*.html'
+					]
+				},
+				options: {
+					watchTask: true,
+					server: "<%= paths.distDir %>"
+				}
+			}
 		}
 	});
 
-	grunt.registerTask("default", ["js", "scss", "css", "watch"]);
-	grunt.registerTask("js", ["newer:uglify:minimize", "newer:uglify:minimizeAlone", "newer:concat:combineJs", "newer:copy:copyJs"]);
-	grunt.registerTask("scss", ["newer:sass"]);
-	grunt.registerTask("css", ["newer:cssmin:minimize", "newer:cssmin:minimizeAlone", "newer:concat:combineCss", "newer:copy:copyCss"]);
-	grunt.registerTask("img", ["newer:imagemin", "newer:copy:copyImg"]);
+	grunt.registerTask("default", ["browserSync:server", "js", "scss", "css", "watch"]);
+	grunt.registerTask("js", ["uglify:compute", "uglify:computeAlone", "concat:combineJs", "copy:copyJs"]);
+	grunt.registerTask("scss", ["sass"]);
+	grunt.registerTask("css", ["cssmin:minimize", "cssmin:minimizeAlone", "cssmin:combineCss", "copy:copyCss"]);
+	grunt.registerTask("img", ["newer:imagemin", "copy:copyImg"]);
 	grunt.registerTask("cleanup", ["clean:dependencies", "clean:js", "clean:css", "clean:img", "clean:dist", "cleanempty"]);
 	grunt.registerTask("build", ["js", "scss", "css", "img"]);
 	grunt.registerTask("init", ["copy:init"]); //"curl:init"
