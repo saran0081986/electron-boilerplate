@@ -1,0 +1,9 @@
+@each $format in $formats {
+
+	%#{$format}-default {
+		padding       : padding($format, "v") padding($format, "h");
+		border-radius : border-radius($format);
+		font-size     : font-size($format);
+		border-width  : border-size($format);
+	}
+}
