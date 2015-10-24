@@ -1,9 +1,9 @@
 {
-  "name": "front-skeleton",
-  "description": "Front Skeleton",
+  "name": "front-boilerplate",
+  "description": "Front Boilerplate",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Maxwellewxam/Front_Skeleton.git"
+    "url": "git+https://github.com/Maxwellewxam/Front_Boilerplate.git"
   },
   "version": "2.0.0",
   "main": "dist/index.html",
