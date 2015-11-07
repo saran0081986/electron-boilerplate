@@ -135,7 +135,8 @@ gulp.task("js:computeAlone", function () {
 var clean = [
 	paths.dist.css + "/**/*.css",
 	paths.dist.img + "/**/*." + paths.imageExtensions,
-	paths.dist.js + "/**/*.js"
+	paths.dist.js + "/**/*.js",
+	paths.src.css + "/app.css"
 ];
 gulp.task("clean", function () {
 	dependencies.forEach(function (dependency) {

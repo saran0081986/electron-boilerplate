@@ -1,4 +1,10 @@
+# Dependencies
 src/scss/mixins/bourbon
 src/scss/mixins/neat
 src/css/normalize.css
 dist/assets/js/jquery.min.js
+# App
+dist/assets/css/**/*.css
+dist/assets/img/**/*
+dist/assets/js/**/*.js
+src/css/app.css
