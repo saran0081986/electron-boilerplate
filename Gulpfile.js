@@ -1,5 +1,6 @@
 var gulp        = require("gulp");
-var browserSync = require('browser-sync').create();
+var browserSync = require('browser-sync')
+	.create();
 
 var concat   = require('gulp-concat');
 var cssnano  = require('gulp-cssnano');
@@ -59,7 +60,7 @@ var dependencies = [
 gulp.task("dependencies:load", function () {
 	dependencies.forEach(function (dependency) {
 		gulp.src(dependency.cwd + "/" + dependency.src, {base: dependency.cwd})
-			.pipe(gulp.dest(dependency.dest));
+		    .pipe(gulp.dest(dependency.dest));
 	});
 });
 
@@ -81,32 +82,36 @@ var postcssProcessors = [
 ];
 gulp.task("scss:compile", function () { // Returns stream for synchronous execution
 	return gulp.src(paths.src.scss + "/**/*.scss")
-		.pipe(sass().on('error', sass.logError))
-		.pipe(gulp.dest(paths.src.css));
+	           .pipe(sass()
+		           .on('error', sass.logError))
+	           .pipe(gulp.dest(paths.src.css));
 });
 gulp.task("css:compute", function () {
 	gulp.src([paths.src.css + "/**/*.css", "!" + paths.src.css + "/" + paths.aloneDirName + "/**/*.css"])
-		.pipe(postcss(postcssProcessors))
-		.pipe(cssnano())
-		.pipe(concat(paths.concatenatedFileName + ".css"))
-		.pipe(gulp.dest(paths.dist.css))
-		.pipe(browserSync.stream());
+	    .pipe(postcss(postcssProcessors))
+	    .pipe(cssnano())
+	    .pipe(concat(paths.concatenatedFileName + ".css"))
+	    .pipe(gulp.dest(paths.dist.css))
+	    .pipe(browserSync.stream());
 });
 gulp.task("css:computeAlone", function () {
 	gulp.src(paths.src.css + "/" + paths.aloneDirName + "/**/*.css")
-		.pipe(postcss(postcssProcessors))
-		.pipe(cssnano())
-		.pipe(gulp.dest(paths.dist.css))
-		.pipe(browserSync.stream());
+	    .pipe(postcss(postcssProcessors))
+	    .pipe(cssnano())
+	    .pipe(gulp.dest(paths.dist.css))
+	    .pipe(browserSync.stream());
 });
 
 /*
  * IMG
  */
 gulp.task("img:compute", function () {
-	gulp.src([paths.src.img + "/**/*." + paths.imageExtensions, "!" + paths.src.img + "/" + paths.imagesToSpritesDirName + "/**/*." + paths.imageExtensions])
-		.pipe(imagemin({multipass: true}))
-		.pipe(gulp.dest(paths.dist.img));
+	gulp.src([
+		    paths.src.img + "/**/*." + paths.imageExtensions,
+		    "!" + paths.src.img + "/" + paths.imagesToSpritesDirName + "/**/*." + paths.imageExtensions
+	    ])
+	    .pipe(imagemin({multipass: true}))
+	    .pipe(gulp.dest(paths.dist.img));
 });
 
 /*
@@ -114,14 +119,14 @@ gulp.task("img:compute", function () {
  */
 gulp.task("js:compute", function () {
 	gulp.src([paths.src.js + "/**/*.js", "!" + paths.src.js + "/" + paths.aloneDirName + "/**/*.js"])
-		.pipe(uglify({mangle: false}))
-		.pipe(concat(paths.concatenatedFileName + ".js"))
-		.pipe(gulp.dest(paths.dist.js));
+	    .pipe(uglify({mangle: false}))
+	    .pipe(concat(paths.concatenatedFileName + ".js"))
+	    .pipe(gulp.dest(paths.dist.js));
 });
 gulp.task("js:computeAlone", function () {
 	gulp.src(paths.src.js + "/" + paths.aloneDirName + "/**/*.js")
-		.pipe(uglify({mangle: false}))
-		.pipe(gulp.dest(paths.dist.js));
+	    .pipe(uglify({mangle: false}))
+	    .pipe(gulp.dest(paths.dist.js));
 });
 
 /*
@@ -153,8 +158,11 @@ gulp.task("clean", function () {
 gulp.task("watch", function () {
 	gulp.watch(paths.src.scss + "/**/*.scss", ["scss"]);
 	gulp.watch(paths.src.css + "/**/*.css", ["css"]);
-	gulp.watch([paths.src.img + "/**/*." + paths.imageExtensions, "!" + paths.src.img + "/" + paths.imagesToSpritesDirName + "/**/*." + paths.imageExtensions],
-	           ["img"]);
+	gulp.watch([
+			paths.src.img + "/**/*." + paths.imageExtensions,
+			"!" + paths.src.img + "/" + paths.imagesToSpritesDirName + "/**/*." + paths.imageExtensions
+		],
+		["img"]);
 	gulp.watch(paths.src.js + "/**/*.js", ["js"]);
 });
 
@@ -165,8 +173,10 @@ gulp.task("browserSync:serve", function () {
 	browserSync.init({
 		server: paths.dist.dir
 	});
-	gulp.watch(paths.dist.dir + "/**/*.html").on('change', browserSync.reload);
-	gulp.watch(paths.dist.js + "/**/*.js").on('change', browserSync.reload);
+	gulp.watch(paths.dist.dir + "/**/*.html")
+	    .on('change', browserSync.reload);
+	gulp.watch(paths.dist.js + "/**/*.js")
+	    .on('change', browserSync.reload);
 });
 
 /*
