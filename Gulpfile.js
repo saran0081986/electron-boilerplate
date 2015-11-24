@@ -172,7 +172,9 @@ gulp.task("watch", function () {
  */
 gulp.task("browserSync:serve", function () {
 	browserSync.init({
-		server: paths.dist.dir
+		server: paths.dist.dir,
+		open: false,
+		reloadOnRestart: true
 	});
 	gulp.watch(paths.dist.dir + "/**/*.html")
 	    .on('change', browserSync.reload);
