@@ -5,7 +5,7 @@ src/css/normalize.css
 dist/assets/js/jquery.min.js
 # App
 dist/assets/css/**/*.css
-dist/assets/img/**/*
+dist/assets/img/**/*.*
 dist/assets/js/**/*.js
 dist/**/*.html
 src/css/app.css
