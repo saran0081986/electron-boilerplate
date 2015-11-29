@@ -1,4 +1,4 @@
-var gulp        = require("gulp");
+var gulp        = require('gulp');
 var browserSync = require('browser-sync')
 	.create();
 
@@ -6,7 +6,9 @@ var concat   = require('gulp-concat');
 var cssnano  = require('gulp-cssnano');
 var del      = require('del');
 var glob     = require('glob');
+var htmlmin  = require('gulp-htmlmin');
 var imagemin = require('gulp-imagemin');
+var jade     = require('gulp-jade');
 var postcss  = require('gulp-postcss');
 var sass     = require('gulp-sass');
 var uglify   = require('gulp-uglify');
@@ -14,16 +16,19 @@ var uglify   = require('gulp-uglify');
 var paths = {
 	src                   : {
 		dir : "src",
+		jade: "src/jade",
+		html: "src/html",
 		js  : "src/js",
 		scss: "src/scss",
 		css : "src/css",
 		img : "src/img"
 	},
 	dist                  : {
-		dir: "dist",
-		js : "dist/assets/js",
-		css: "dist/assets/css",
-		img: "dist/assets/img"
+		dir : "dist",
+		html: "dist",
+		js  : "dist/assets/js",
+		css : "dist/assets/css",
+		img : "dist/assets/img"
 	},
 	aloneDirName          : "alone",
 	concatenatedFileName  : "min",
@@ -86,7 +91,7 @@ gulp.task("scss:compile", function () { // Returns stream for synchronous execut
 		           .on('error', sass.logError))
 	           .pipe(gulp.dest(paths.src.css));
 });
-gulp.task("css:compute", function () {
+gulp.task("css:compute", ["scss:compile"], function () {
 	gulp.src([paths.src.css + "/**/*.css", "!" + paths.src.css + "/" + paths.aloneDirName + "/**/*.css"])
 	    .pipe(postcss(postcssProcessors))
 	    .pipe(cssnano())
@@ -94,7 +99,7 @@ gulp.task("css:compute", function () {
 	    .pipe(gulp.dest(paths.dist.css))
 	    .pipe(browserSync.stream());
 });
-gulp.task("css:computeAlone", function () {
+gulp.task("css:computeAlone", ["scss:compile"], function () {
 	gulp.src(paths.src.css + "/" + paths.aloneDirName + "/**/*.css")
 	    .pipe(postcss(postcssProcessors))
 	    .pipe(cssnano())
@@ -130,12 +135,27 @@ gulp.task("js:computeAlone", function () {
 });
 
 /*
+ * HTML
+ */
+gulp.task("jade:compile", function () { // Returns stream for synchronous execution
+	return gulp.src([paths.src.jade + "/**/*.jade", "!" + paths.src.jade + "/**/_*.jade"])
+	           .pipe(jade({pretty: '    '}))
+	           .pipe(gulp.dest(paths.src.html));
+});
+gulp.task("html:minify", ["jade:compile"], function () {
+	gulp.src(paths.src.html + "/**/*.html")
+	    .pipe(htmlmin({collapseWhitespace: true, removeComments: true, minifyCSS: true, minifyJS: {mangle: false}}))
+	    .pipe(gulp.dest(paths.dist.html));
+});
+
+/*
  * Clean
  */
 var clean = [
 	paths.dist.css + "/**/*.css",
 	paths.dist.img + "/**/*." + paths.imageExtensions,
 	paths.dist.js + "/**/*.js",
+	paths.dist.html + "/**/*.html",
 	paths.src.css + "/app.css"
 ];
 gulp.task("clean", function () {
@@ -165,6 +185,8 @@ gulp.task("watch", function () {
 		],
 		["img"]);
 	gulp.watch(paths.src.js + "/**/*.js", ["js"]);
+	gulp.watch(paths.src.jade + "/**/*.jade", ["jade"]);
+	gulp.watch(paths.src.html + "/**/*.html", ["html"]);
 });
 
 /*
@@ -172,11 +194,11 @@ gulp.task("watch", function () {
  */
 gulp.task("browserSync:serve", function () {
 	browserSync.init({
-		server: paths.dist.dir,
-		open: false,
+		server         : paths.dist.dir,
+		open           : false,
 		reloadOnRestart: true
 	});
-	gulp.watch(paths.dist.dir + "/**/*.html")
+	gulp.watch(paths.dist.html + "/**/*.html")
 	    .on('change', browserSync.reload);
 	gulp.watch(paths.dist.js + "/**/*.js")
 	    .on('change', browserSync.reload);
@@ -190,5 +212,7 @@ gulp.task("scss", ["scss:compile"]);
 gulp.task("css", ["css:compute", "css:computeAlone"]);
 gulp.task("img", ["img:compute"]);
 gulp.task("js", ["js:compute", "js:computeAlone"]);
-gulp.task("default", ["scss", "css", "js", "watch", "browserSync:serve"]);
-gulp.task("build", ["scss", "css", "img", "js"]);
+gulp.task("jade", ["jade:compile"]);
+gulp.task("html", ["html:minify"]);
+gulp.task("build", ["scss", "css", "img", "js", "jade", "html"]);
+gulp.task("default", ["build", "watch", "browserSync:serve"]);
