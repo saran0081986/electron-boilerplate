@@ -7,4 +7,5 @@ dist/assets/js/jquery.min.js
 dist/assets/css/**/*.css
 dist/assets/img/**/*
 dist/assets/js/**/*.js
+dist/**/*.html
 src/css/app.css
