@@ -5,7 +5,7 @@
     "type": "git",
     "url": "git+https://github.com/Maxwellewxam/front-boilerplate.git"
   },
-  "version": "2.3.2",
+  "version": "2.4.0",
   "main": "dist/index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -32,7 +32,6 @@
   "dependencies": {
     "bourbon": "^4.2.5",
     "bourbon-neat": "^1.7.2",
-    "jquery": "^2.1.4",
     "normalize.css": "^3.0.3"
   }
 }
