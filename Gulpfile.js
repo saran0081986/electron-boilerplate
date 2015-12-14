@@ -52,11 +52,6 @@ var dependencies = [
 		dest: paths.src.scss + "/mixins/neat"
 	},
 	{
-		cwd : "node_modules/jquery/dist/",
-		src : "jquery.min.js",
-		dest: paths.dist.js
-	},
-	{
 		cwd : "node_modules/normalize.css/",
 		src : "normalize.css",
 		dest: paths.src.css
