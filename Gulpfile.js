@@ -69,13 +69,13 @@ gulp.task("dependencies:load", function () {
 var postcssProcessors = [
     require("postcss-sprites")
         .default({
-        stylesheetPath  : paths.dist.css,
-        spritePath      : paths.dist.img + "/" + paths.spritesFileName,
-        outputDimensions: true,
-        filterBy        : function (image) {
-            return /sprites/gi.test(image.url);
-        }
-    }),
+            stylesheetPath  : paths.dist.css,
+            spritePath      : paths.dist.img + "/" + paths.spritesFileName,
+            outputDimensions: true,
+            filterBy        : function (image) {
+                return /sprites/gi.test(image.url);
+            }
+        }),
     require("autoprefixer")({
         browsers: ["last 2 version"]
     })
