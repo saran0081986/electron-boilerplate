@@ -1,17 +1,17 @@
 {
-  "name": "front-boilerplate",
-  "description": "Front Boilerplate",
-  "repository": {
+  "name"           : "front-boilerplate",
+  "description"    : "Front Boilerplate",
+  "repository"     : {
     "type": "git",
     "url": "git+https://github.com/Maxwellewxam/front-boilerplate.git"
   },
-  "version": "2.5.0",
-  "main": "dist/index.html",
-  "scripts": {
+    "version"      : "2.5.1",
+  "main"           : "dist/index.html",
+  "scripts"        : {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Maxwellewxam",
-  "license": "ISC",
+  "author"         : "Maxwellewxam",
+  "license"        : "ISC",
   "devDependencies": {
     "autoprefixer": "6.*",
     "browser-sync": "2.*",

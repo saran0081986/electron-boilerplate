@@ -67,7 +67,8 @@ gulp.task("dependencies:load", function () {
  * CSS
  */
 var postcssProcessors = [
-    require("postcss-sprites")({
+    require("postcss-sprites")
+        .default({
         stylesheetPath  : paths.dist.css,
         spritePath      : paths.dist.img + "/" + paths.spritesFileName,
         outputDimensions: true,
