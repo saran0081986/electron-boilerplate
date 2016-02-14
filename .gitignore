@@ -1,10 +1,21 @@
 # Dependencies
 src/scss/mixins/bourbon
-src/scss/mixins/neat
-src/css/normalize.css
+
 # App
 dist/assets/css/**/*.css
 dist/assets/img/**/*.*
 dist/assets/js/**/*.js
 dist/**/*.html
-src/css/app.css
+
+# If using only SCSS
+src/css/**/*.css
+# If only using CSS
+    #src/scss/**/*.scss
+# If using both
+    #src/css/app.css
+
+# If using only Jade
+src/html/**/*.html
+# If only using HTML
+    #src/jade/**/*.jade
+# If using both
