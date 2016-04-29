@@ -62,6 +62,21 @@ gulp.task("dependencies:load", function () {
             .pipe(gulp.dest(dependency.dest));
     });
 });
+gulp.task("dependencies:clean", function () {
+    var clean = [];
+    dependencies.forEach(function (dependency) {
+        clean.push(dependency.dest + "/" + dependency.src);
+    });
+    del.sync(clean);
+
+    var cleanDependenciesDir = [];
+    dependencies.forEach(function (dependency) {
+        if (glob.sync(dependency.dest + "/**/*").length == 0) {
+            cleanDependenciesDir.push(dependency.dest);
+        }
+    });
+    del.sync(cleanDependenciesDir);
+});
 
 /*
  * CSS
@@ -69,22 +84,22 @@ gulp.task("dependencies:load", function () {
 var postcssProcessors = [
     require("postcss-sprites")
         .default({
-            stylesheetPath  : paths.dist.css,
-            spritePath      : paths.dist.img + "/" + paths.spritesFileName,
-            outputDimensions: true,
-            filterBy        : function (image) {
-                return /sprites/gi.test(image.url);
-            }
-        }),
+                     stylesheetPath  : paths.dist.css,
+                     spritePath      : paths.dist.img + "/" + paths.spritesFileName,
+                     outputDimensions: true,
+                     filterBy        : function (image) {
+                         return /sprites/gi.test(image.url);
+                     }
+                 }),
     require("autoprefixer")({
-        browsers: ["last 2 version"]
-    })
+                                browsers: ["last 2 version"]
+                            })
 ];
 if (config.using.scss) {
     gulp.task("scss:compile", function () { // Returns stream for synchronous execution
         return gulp.src(paths.src.scss + "/**/*.scss")
                    .pipe(sass()
-                       .on('error', sass.logError))
+                             .on('error', sass.logError))
                    .pipe(gulp.dest(paths.src.css));
     });
 }
@@ -109,9 +124,9 @@ gulp.task("css:computeAlone", (config.using.scss) ? ["scss:compile"] : [], funct
  */
 gulp.task("img:compute", function () {
     gulp.src([
-            paths.src.img + "/**/*." + paths.imageExtensions,
-            "!" + paths.src.img + "/" + paths.imagesToSpritesDirName + "/**/*." + paths.imageExtensions
-        ])
+                 paths.src.img + "/**/*." + paths.imageExtensions,
+                 "!" + paths.src.img + "/" + paths.imagesToSpritesDirName + "/**/*." + paths.imageExtensions
+             ])
         .pipe(imagemin({multipass: true}))
         .pipe(gulp.dest(paths.dist.img));
 });
@@ -162,19 +177,8 @@ if (!config.using.css) {
 if (!config.using.html) {
     clean.push(paths.src.html + "/**/*.html");
 }
-gulp.task("clean", function () {
-    dependencies.forEach(function (dependency) {
-        clean.push(dependency.dest + "/" + dependency.src);
-    });
+gulp.task("clean", ["dependencies:clean"], function () {
     del.sync(clean);
-
-    var cleanDependenciesDir = [];
-    dependencies.forEach(function (dependency) {
-        if (glob.sync(dependency.dest + "/**/*").length == 0) {
-            cleanDependenciesDir.push(dependency.dest);
-        }
-    });
-    del.sync(cleanDependenciesDir);
 });
 
 /*
@@ -186,10 +190,10 @@ gulp.task("watch", function () {
     }
     gulp.watch(paths.src.css + "/**/*.css", ["css"]);
     gulp.watch([
-            paths.src.img + "/**/*." + paths.imageExtensions,
-            "!" + paths.src.img + "/" + paths.imagesToSpritesDirName + "/**/*." + paths.imageExtensions
-        ],
-        ["img"]);
+                   paths.src.img + "/**/*." + paths.imageExtensions,
+                   "!" + paths.src.img + "/" + paths.imagesToSpritesDirName + "/**/*." + paths.imageExtensions
+               ],
+               ["img"]);
     gulp.watch(paths.src.js + "/**/*.js", ["js"]);
     if (config.using.jade) {
         gulp.watch(paths.src.jade + "/**/*.jade", ["jade"]);
@@ -202,10 +206,10 @@ gulp.task("watch", function () {
  */
 gulp.task("browserSync:serve", function () {
     browserSync.init({
-        server         : paths.dist.dir,
-        open           : false,
-        reloadOnRestart: true
-    });
+                         server         : paths.dist.dir,
+                         open           : false,
+                         reloadOnRestart: true
+                     });
     gulp.watch(paths.dist.html + "/**/*.html")
         .on('change', browserSync.reload);
     gulp.watch(paths.dist.js + "/**/*.js")
