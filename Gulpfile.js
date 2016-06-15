@@ -8,7 +8,7 @@ var del      = require('del');
 var glob     = require('glob');
 var htmlmin  = require('gulp-htmlmin');
 var imagemin = require('gulp-imagemin');
-var jade     = require('gulp-jade');
+var pug      = require('gulp-pug');
 var postcss  = require('gulp-postcss');
 var sass     = require('gulp-sass');
 var uglify   = require('gulp-uglify');
@@ -18,14 +18,14 @@ var config = {
         css : false,
         scss: true,
         html: false,
-        jade: true
+        pug : true
     }
 };
 
 var paths = {
     src                   : {
         dir : "src",
-        jade: "src/jade",
+        pug : "src/pug",
         html: "src/html",
         js  : "src/js",
         scss: "src/scss",
@@ -89,7 +89,7 @@ var postcssProcessors = [
                          if (!(new RegExp(paths.imagesToSpritesDirName, "gi")).test(image.url)) {
                              return Promise.reject();
                          }
-        
+
                          return Promise.resolve();
                      }
                  }),
@@ -166,14 +166,14 @@ gulp.task("js:computeAlone", function () {
 /*
  * HTML
  */
-if (config.using.jade) {
-    gulp.task("jade:compile", function () { // Returns stream for synchronous execution
-        return gulp.src([paths.src.jade + "/**/*.jade", "!" + paths.src.jade + "/**/_*.jade"])
-                   .pipe(jade({pretty: '    '}))
+if (config.using.pug) {
+    gulp.task("pug:compile", function () { // Returns stream for synchronous execution
+        return gulp.src([paths.src.pug + "/**/*.pug", "!" + paths.src.pug + "/**/_*.pug"])
+                   .pipe(pug({pretty: '    '}))
                    .pipe(gulp.dest(paths.src.html));
     });
 }
-gulp.task("html:minify", (config.using.jade) ? ["jade:compile"] : [], function () {
+gulp.task("html:minify", (config.using.pug) ? ["pug:compile"] : [], function () {
     gulp.src(paths.src.html + "/**/*.html")
         .pipe(htmlmin({
                           html5                     : true,
@@ -223,8 +223,8 @@ gulp.task("watch", function () {
                ],
                ["img"]);
     gulp.watch(paths.src.js + "/**/*.js", ["js"]);
-    if (config.using.jade) {
-        gulp.watch(paths.src.jade + "/**/*.jade", ["jade"]);
+    if (config.using.pug) {
+        gulp.watch(paths.src.pug + "/**/*.pug", ["pug"]);
     }
     gulp.watch(paths.src.html + "/**/*.html", ["html"]);
 });
@@ -254,8 +254,8 @@ if (config.using.scss) {
 gulp.task("css", ["css:compute", "css:computeAlone"]);
 gulp.task("img", ["img:compute"]);
 gulp.task("js", ["js:compute", "js:computeAlone"]);
-if (config.using.jade) {
-    gulp.task("jade", ["jade:compile"]);
+if (config.using.pug) {
+    gulp.task("pug", ["pug:compile"]);
 }
 gulp.task("html", ["html:minify"]);
 var build = [];
@@ -263,8 +263,8 @@ if (config.using.scss) {
     build.push("scss");
 }
 build.push("css", "img", "js");
-if (config.using.jade) {
-    build.push("jade");
+if (config.using.pug) {
+    build.push("pug");
 }
 build.push("html");
 gulp.task("build", build);

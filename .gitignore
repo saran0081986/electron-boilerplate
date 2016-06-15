@@ -14,8 +14,8 @@ src/css/**/*.css
 # If using both
     #src/css/app.css
 
-# If using only Jade
+# If using only Pug
 src/html/**/*.html
 # If only using HTML
-    #src/jade/**/*.jade
+    #src/pug/**/*.pug
 # If using both

@@ -1,10 +1,9 @@
 before_script:
-    - npm install -g gulp
     - npm update
-    - gulp init
+    - ./node_modules/.bin/gulp init
 
 build:
     tags:
         - node
     script:
-        - gulp build
+        - ./node_modules/.bin/gulp build
