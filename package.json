@@ -5,7 +5,7 @@
         "type": "git",
         "url" : "git+https://github.com/Maxwellewxam/front-boilerplate.git"
     },
-    "version"        : "2.8.0",
+    "version"        : "2.9.0",
     "main"           : "dist/index.html",
     "scripts"        : {
         "install": "gulp dependencies:clean && gulp dependencies:load",
@@ -21,8 +21,8 @@
         "gulp"                  : "3",
         "gulp-concat"           : "2",
         "gulp-cssnano"          : "2",
-        "gulp-htmlmin"          : "1",
-        "gulp-imagemin"         : "2",
+        "gulp-htmlmin"          : "2",
+        "gulp-imagemin"         : "3",
         "gulp-jade"             : "1",
         "gulp-postcss"          : "6",
         "gulp-sass"             : "2",

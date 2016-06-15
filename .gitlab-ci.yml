@@ -1,0 +1,10 @@
+before_script:
+    - npm install -g gulp
+    - npm update
+    - gulp init
+
+build:
+    tags:
+        - node
+    script:
+        - gulp build
