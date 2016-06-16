@@ -84,7 +84,7 @@ var postcssProcessors = [
     require("postcss-sprites")
         .default({
                      stylesheetPath: paths.dist.css,
-                     spritePath    : paths.src.img,
+                     spritePath    : paths.dist.img,
                      filterBy      : function (image) {
                          if (!(new RegExp(paths.imagesToSpritesDirName, "gi")).test(image.url)) {
                              return Promise.reject();
@@ -111,7 +111,7 @@ if (config.using.scss) {
 gulp.task("css:compute", (config.using.scss) ? ["scss:compile"] : [], function () {
     gulp.src([paths.src.css + "/**/*.css", "!" + paths.src.css + "/" + paths.aloneDirName + "/**/*.css"])
         .pipe(postcss(postcssProcessors))
-        .pipe(cssnano())
+        .pipe(cssnano({safe: true}))
         .pipe(concat(paths.concatenatedFileName + ".css"))
         .pipe(gulp.dest(paths.dist.css))
         .pipe(browserSync.stream());
@@ -119,7 +119,7 @@ gulp.task("css:compute", (config.using.scss) ? ["scss:compile"] : [], function (
 gulp.task("css:computeAlone", (config.using.scss) ? ["scss:compile"] : [], function () {
     gulp.src(paths.src.css + "/" + paths.aloneDirName + "/**/*.css")
         .pipe(postcss(postcssProcessors))
-        .pipe(cssnano())
+        .pipe(cssnano({safe: true}))
         .pipe(gulp.dest(paths.dist.css))
         .pipe(browserSync.stream());
 });
