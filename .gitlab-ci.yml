@@ -1,9 +1,0 @@
-before_script:
-    - npm update
-    - ./node_modules/.bin/gulp init
-
-build:
-    tags:
-        - node
-    script:
-        - ./node_modules/.bin/gulp build
