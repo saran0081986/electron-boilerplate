@@ -1,0 +1,19 @@
+stages:
+    - build
+    - review
+
+build:
+    image: node
+    stage: build
+    cache:
+        paths:
+            - node_modules/
+    script:
+        - npm update
+        - ./node_modules/.bin/gulp init
+        - ./node_modules/.bin/gulp build
+
+sonar:
+    image: maxwellewxam/sonar-scanner
+    stage: review
+    script: sonar-scanner -D sonar.host.url=http://sonar.flow.local:80 -D sonar.branch=$CI_BUILD_REF_NAME -D sonar.login=$SONAR_TOKEN
