@@ -2,8 +2,19 @@ stages:
     - build
     - review
 
-build:
-    image: node
+build:node-6:
+    image: node:6
+    stage: build
+    cache:
+        paths:
+            - node_modules/
+    script:
+        - npm update
+        - ./node_modules/.bin/gulp init
+        - ./node_modules/.bin/gulp build
+
+build:node-7:
+    image: node:7
     stage: build
     cache:
         paths:
