@@ -7,12 +7,16 @@ stages:
     cache:
         paths:
             - node_modules/
+            - $HOME/.yarn-cache
     artifacts:
         name: "${CI_BUILD_REF_NAME}-${CI_BUILD_NAME}"
         paths:
             - build/
+            - yarn.lock
+    before_script:
+        - npm install yarn
     script:
-        - npm update
+        - ./node_modules/.bin/yarn
         - ./node_modules/.bin/gulp init
         - ./node_modules/.bin/gulp build
 
