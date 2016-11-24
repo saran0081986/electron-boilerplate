@@ -27,11 +27,14 @@ build:node-6:
 
 build:node-7:
     image: node:7
+    allow_failure: true
     <<: *build-job
 
 sonar:
     image: maxwellewxam/sonar-scanner
     stage: review
+    except:
+        - dmz
     cache:
         paths:
             - .sonar/
