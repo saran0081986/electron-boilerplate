@@ -32,6 +32,8 @@ build:node-7:
 sonar:
     image: maxwellewxam/sonar-scanner
     stage: review
+    only:
+        - branches
     except:
         - dmz
     cache:
