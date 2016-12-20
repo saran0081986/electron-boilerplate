@@ -12,10 +12,12 @@ const hotMiddleware = require('webpack-hot-middleware')(compiler)
 
 const HTMLFileChanged = path => {
     console.log(`-> ${path} changed`)
-    compileHTMLFile(path, false, () => {
+    compileHTMLFile.file(path, false, () => {
         hotMiddleware.publish({action: 'reload'})
     })
 }
+
+compileHTMLFile.allFiles()
 
 const server = new WebpackDevServer(compiler, {
     contentBase       : config.output,
