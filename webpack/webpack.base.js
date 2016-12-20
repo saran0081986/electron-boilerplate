@@ -1,7 +1,13 @@
 const webpack = require('webpack')
 const config  = require('./config')
 
-const root = require('./root')
+const root    = require('./root')
+const postcss = [
+    require('autoprefixer')({
+                                browsers: config.browsers
+                            }),
+    require('css-mqpacker')()
+]
 
 module.exports = {
     entry      : config.entry,
@@ -29,11 +35,19 @@ module.exports = {
                 loaders: ['css-loader', 'postcss-loader']
             },
             {
-                test  : /\.(png|jpg|gif|svg|woff2?|eot|ttf|otf)$/,
+                test  : /\.(png|jpg|gif|svg)$/,
                 loader: 'url-loader',
                 query : {
                     limit: 1000,
-                    name : '[name].[ext]'
+                    name : 'img/[name].[ext]'
+                }
+            },
+            {
+                test  : /\.(woff2?|eot|ttf|otf)$/,
+                loader: 'url-loader',
+                query : {
+                    limit: 1000,
+                    name : 'font/[name].[ext]'
                 }
             },
             {
@@ -45,12 +59,7 @@ module.exports = {
     plugins    : [
         new webpack.LoaderOptionsPlugin({
             options: {
-                postcss   : [
-                    require('autoprefixer')({
-                                                browsers: config.browsers
-                                            }),
-                    require('css-mqpacker')()
-                ],
+                postcss,
                 sassLoader: {
                     includePaths: config.sassIncludePaths,
                     indentWidth : 4,

@@ -5,7 +5,7 @@
         "type": "git",
         "url": "git+https://github.com/Maxwellewxam/front-boilerplate.git"
     },
-    "version": "4.0.0",
+    "version": "4.0.1",
     "main": "src/js/main.js",
     "scripts": {
         "build": "cross-env NODE_ENV=production node webpack/build.js",
