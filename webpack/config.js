@@ -17,7 +17,7 @@ module.exports = {
     outputPublicPath  : './',
     port              : 8080,
     sassIncludePaths  : [
-        ...require("bourbon").includePaths,
+        ...require('bourbon').includePaths,
         `${root}/src/css`
     ]
 }

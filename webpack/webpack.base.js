@@ -38,7 +38,7 @@ module.exports = {
                 test  : /\.(png|jpg|gif|svg)$/,
                 loader: 'url-loader',
                 query : {
-                    limit: 1000,
+                    limit: 5000,
                     name : 'img/[name].[ext]'
                 }
             },
@@ -46,7 +46,7 @@ module.exports = {
                 test  : /\.(woff2?|eot|ttf|otf)$/,
                 loader: 'url-loader',
                 query : {
-                    limit: 1000,
+                    limit: 5000,
                     name : 'font/[name].[ext]'
                 }
             },
@@ -74,7 +74,7 @@ module.exports = {
         ])
     ],
     devServer  : {
-        headers: {"Access-Control-Allow-Origin": "*"}
+        headers: {'Access-Control-Allow-Origin': '*'}
     },
     performance: {
         hints: config.debug ? false : 'warning'

@@ -35,7 +35,7 @@ module.exports = {
                     minifyCSS                 : true,
                     minifyJS                  : config.uglifyJsConfig,
                     processConditionalComments: true,
-                    quoteCharacter            : "\"",
+                    quoteCharacter            : '\"',
                     removeEmptyAttributes     : true,
                     removeRedundantAttributes : true,
                     collapseBooleanAttributes : true
