@@ -161,6 +161,7 @@ function processMessage(obj) {
                     "rebuilt in " + obj.time + "ms"
                 );
             }
+            break;
         // fall through
         case "sync":
             if (obj.errors.length > 0) {
@@ -190,13 +191,13 @@ function processMessage(obj) {
 
 if (module) {
     module.exports = {
-        subscribeAll    : function subscribeAll(handler) {
+        subscribeAll    : function (handler) {
             subscribeAllHandler = handler;
         },
-        subscribe       : function subscribe(handler) {
+        subscribe       : function (handler) {
             customHandler = handler;
         },
-        useCustomOverlay: function useCustomOverlay(customOverlay) {
+        useCustomOverlay: function (customOverlay) {
             if (reporter) {
                 reporter.useCustomOverlay(customOverlay);
             }

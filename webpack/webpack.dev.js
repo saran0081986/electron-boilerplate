@@ -3,12 +3,12 @@ const config  = require('./config')
 
 const root = require('./root')
 
-let webpackConfig = require('./webpack.base')
+const webpackConfig = require('./webpack.base')
 
 webpackConfig.output.publicPath = `http://localhost:${config.port}/`
 webpackConfig.output.path       = `${root}/tmp`
 
-for (let name in webpackConfig.entry) {
+for (const name in webpackConfig.entry) {
     webpackConfig.entry[name] = [`${root}/webpack/server-client`, ...webpackConfig.entry[name]]
 }
 

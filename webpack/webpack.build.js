@@ -7,7 +7,7 @@ const ProgressBarPlugin       = require('progress-bar-webpack-plugin')
 
 const root = require('./root')
 
-let webpackConfig = require('./webpack.base')
+const webpackConfig = require('./webpack.base')
 
 webpackConfig.plugins.push(
     new ExtractTextPlugin('[name].css'),

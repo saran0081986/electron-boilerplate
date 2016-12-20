@@ -10,14 +10,14 @@ const root          = require('./root')
 
 const hotMiddleware = require('webpack-hot-middleware')(compiler)
 
-let HTMLFileChanged = path => {
+const HTMLFileChanged = path => {
     console.log(`-> ${path} changed`)
     compileHTMLFile(path, false, () => {
         hotMiddleware.publish({action: 'reload'})
     })
 }
 
-let server = new WebpackDevServer(compiler, {
+const server = new WebpackDevServer(compiler, {
     contentBase       : config.output,
     hot               : true,
     historyApiFallback: config.historyApiFallback,

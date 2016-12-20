@@ -11,7 +11,7 @@ module.exports = (path, minify = true, callback = null) => {
         }
     }
     let filename = /\w+\.(html|pug)$/.exec(path)[0]
-    let isPug    = filename.slice(-3) == 'pug'
+    const isPug    = filename.slice(-3) == 'pug'
     fs.readFile(path, 'utf8', (err, content) => {
         if (err) {
             throw err
