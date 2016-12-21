@@ -1,17 +1,14 @@
-const compileHTMLFile = require('./compileHTMLFile')
-const webpack         = require('webpack')
+const webpack = require('webpack')
 
 const config        = require('./config')
 const root          = require('./root')
 const webpackConfig = require('./webpack.build')
 
-compileHTMLFile.allFiles()
-
 webpack(webpackConfig, (err, stats) => {
     if (err) {
         throw err
     }
-
+    
     process.stdout.write(stats.toString({
                                             colors      : true,
                                             modules     : false,

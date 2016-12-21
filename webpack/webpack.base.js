@@ -8,16 +8,23 @@ const postcss = [
                             }),
     require('css-mqpacker')()
 ]
+const loaders = {
+    html: [
+        'file-loader?name=[name].html',
+        `extract-loader?publicPath=${config.outputPublicPath}`
+    ],
+    css : [
+        'css-loader',
+        'postcss-loader'
+    ]
+}
 
 module.exports = {
     entry      : config.entry,
     output     : {
         path      : config.output,
-        filename  : '[name].js',
+        filename  : 'js/[name].js',
         publicPath: config.outputPublicPath
-    },
-    resolve    : {
-        extensions: ['.css', '.scss', '.js', '.json']
     },
     module     : {
         rules: [
@@ -28,11 +35,11 @@ module.exports = {
             },
             {
                 test   : /\.scss$/,
-                loaders: ['css-loader', 'postcss-loader', 'sass-loader']
+                loaders: [...loaders.css, 'sass-loader']
             },
             {
                 test   : /\.css$/,
-                loaders: ['css-loader', 'postcss-loader']
+                loaders: loaders.css
             },
             {
                 test  : /\.(png|jpg|gif|svg)$/,
@@ -53,6 +60,14 @@ module.exports = {
             {
                 test  : /\.json$/,
                 loader: 'json-loader'
+            },
+            {
+                test   : /\.pug$/,
+                loaders: [...loaders.html, 'pug-html-loader?pretty=    ']
+            },
+            {
+                test   : /\.html$/,
+                loaders: [...loaders.html, 'html-loader']
             }
         ]
     },
@@ -60,11 +75,7 @@ module.exports = {
         new webpack.LoaderOptionsPlugin({
             options: {
                 postcss,
-                sassLoader: {
-                    includePaths: config.sassIncludePaths,
-                    indentWidth : 4,
-                    outputStyle : 'expanded'
-                }
+                sassLoader: config.loaders.sass
             }
         }),
         new webpack.WatchIgnorePlugin([

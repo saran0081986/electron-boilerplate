@@ -1,23 +1,25 @@
-const chokidar         = require('chokidar')
-const compileHTMLFile  = require('./compileHTMLFile')
 const webpack          = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
 
 const config        = require('./config')
 const webpackConfig = require('./webpack.dev')
-const compiler      = webpack(webpackConfig)
 const root          = require('./root')
 
-const hotMiddleware = require('webpack-hot-middleware')(compiler)
-
-const HTMLFileChanged = path => {
-    console.log(`-> ${path} changed`)
-    compileHTMLFile.file(path, false, () => {
-        hotMiddleware.publish({action: 'reload'})
+webpackConfig.plugins.push(function () {
+    this.plugin('after-emit', (compilation, compileCallback) => {
+        Object.keys(compilation.assets)
+              .some(assetName => {
+                  if (assetName.match(/\.html$/) && compilation.assets[assetName].emitted) {
+                      hotMiddleware.publish({action: 'reload'})
+                      return true
+                  }
+              })
+        
+        compileCallback()
     })
-}
-
-compileHTMLFile.allFiles()
+})
+const compiler      = webpack(webpackConfig)
+const hotMiddleware = require('webpack-hot-middleware')(compiler)
 
 const server = new WebpackDevServer(compiler, {
     contentBase       : config.output,
@@ -39,8 +41,6 @@ server.listen(config.port, err => {
         console.log(err)
         return
     }
-
-    chokidar.watch(`${root}/src/*.@(html|pug)`)
-            .on('change', HTMLFileChanged)
+    
     console.log(`Listening on ${config.port}`)
 })
