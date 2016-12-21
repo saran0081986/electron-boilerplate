@@ -15,7 +15,7 @@ webpackConfig.plugins.push(
     new ExtractTextPlugin('css/[name].css'),
     function () {
         this.plugin('emit', (compilation, compileCallback) => {
-            let assets = compilation.assets
+            const assets = compilation.assets
             
             let cssChunksLoad = ''
             compilation.chunks.forEach(chunk => {
