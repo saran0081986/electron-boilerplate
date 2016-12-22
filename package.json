@@ -1,11 +1,11 @@
 {
-    "name": "front-boilerplate",
-    "description": "Front Boilerplate",
+    "name": "electron-boilerplate",
+    "description": "Electron Boilerplate (based on Front Boilerplate 4.1.0)",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/Maxwellewxam/front-boilerplate.git"
+        "url": "git+https://github.com/Maxwellewxam/electron-boilerplate.git"
     },
-    "version": "4.1.0",
+    "version": "1.0.0",
     "main": "src/js/app.js",
     "scripts": {
         "build": "cross-env NODE_ENV=production node webpack/build.js",
