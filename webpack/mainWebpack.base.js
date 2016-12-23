@@ -1,0 +1,32 @@
+const webpack = require('webpack')
+const config  = require('./config')
+
+const root = require('./root')
+
+module.exports = {
+    target     : 'electron',
+    node       : {
+        __dirname : false,
+        __filename: false,
+    },
+    entry      : {
+        main: `${root}/src/main/index.js`
+    },
+    output     : {
+        path      : `${root}/build`,
+        filename  : '[name].js',
+        publicPath: config.outputPublicPath
+    },
+    module     : {
+        rules: [
+            {
+                test  : /\.json$/,
+                loader: 'json-loader'
+            }
+        ]
+    },
+    plugins    : [],
+    performance: {
+        hints: config.debug ? false : 'warning'
+    }
+}

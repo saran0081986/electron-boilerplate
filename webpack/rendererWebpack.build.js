@@ -1,15 +1,13 @@
-const webpack                 = require('webpack')
-const webpackSources          = require('webpack-sources')
-const config                  = require('./config')
-const ExtractTextPlugin       = require('extract-text-webpack-plugin')
-const HtmlMinifierPlugin      = require('html-minifier-webpack-plugin')
-const ImageminPlugin          = require('imagemin-webpack-plugin').default
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const ProgressBarPlugin       = require('progress-bar-webpack-plugin')
+const webpack           = require('webpack')
+const webpackSources    = require('webpack-sources')
+const config            = require('./config')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const ImageminPlugin    = require('imagemin-webpack-plugin').default
+const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 
 const root = require('./root')
 
-const webpackConfig = require('./webpack.base')
+const webpackConfig = require('./rendererWebpack.base')
 
 webpackConfig.plugins.push(
     new ExtractTextPlugin('css/[name].css'),
@@ -41,12 +39,7 @@ webpackConfig.plugins.push(
             compileCallback()
         })
     },
-    new OptimizeCssAssetsPlugin({
-        cssProcessorOptions: config.optimize.cssnano
-    }),
-    new webpack.optimize.UglifyJsPlugin(config.optimize.uglifyjs),
     new ImageminPlugin(config.optimize.imagemin),
-    new HtmlMinifierPlugin(config.optimize.htmlminifier),
     new ProgressBarPlugin()
 )
 

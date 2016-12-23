@@ -1,10 +1,11 @@
-const webpack = require('webpack')
-const config  = require('./config')
+const webpack        = require('webpack')
+const config         = require('./config')
+const rendererConfig = require('./rendererConfig')
 
 const root    = require('./root')
 const postcss = [
     require('autoprefixer')({
-                                browsers: config.browsers
+                                rendererConfig: config.browsers
                             }),
     require('css-mqpacker')()
 ]
@@ -20,9 +21,10 @@ const loaders = {
 }
 
 module.exports = {
-    entry      : config.entry,
+    target     : 'electron-renderer',
+    entry      : rendererConfig.entry,
     output     : {
-        path      : config.output,
+        path      : rendererConfig.output,
         filename  : 'js/[name].js',
         publicPath: config.outputPublicPath
     },
@@ -75,7 +77,7 @@ module.exports = {
         new webpack.LoaderOptionsPlugin({
             options: {
                 postcss,
-                sassLoader: config.loaders.sass
+                sassLoader: rendererConfig.loaders.sass
             }
         }),
         new webpack.WatchIgnorePlugin([

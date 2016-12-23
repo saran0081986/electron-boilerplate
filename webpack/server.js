@@ -1,11 +1,13 @@
+const chokidar         = require('chokidar')
 const webpack          = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
 
-const config        = require('./config')
-const webpackConfig = require('./webpack.dev')
-const root          = require('./root')
+const config                = require('./config')
+const rendererConfig        = require('./rendererConfig')
+const rendererWebpackConfig = require('./rendererWebpack.dev.js')
+const root                  = require('./root')
 
-webpackConfig.plugins.push(function () {
+rendererWebpackConfig.plugins.push(function () {
     this.plugin('after-emit', (compilation, compileCallback) => {
         Object.keys(compilation.assets)
               .some(assetName => {
@@ -18,16 +20,17 @@ webpackConfig.plugins.push(function () {
         compileCallback()
     })
 })
-const compiler      = webpack(webpackConfig)
+
+const compiler      = webpack(rendererWebpackConfig)
 const hotMiddleware = require('webpack-hot-middleware')(compiler)
 
 const server = new WebpackDevServer(compiler, {
     contentBase       : config.output,
     hot               : true,
-    historyApiFallback: config.historyApiFallback,
+    historyApiFallback: rendererConfig.historyApiFallback,
     quiet             : false,
     noInfo            : false,
-    publicPath        : webpackConfig.output.publicPath,
+    publicPath        : rendererWebpackConfig.output.publicPath,
     stats             : {
         colors: true,
         chunks: false
@@ -44,3 +47,20 @@ server.listen(config.port, err => {
     
     console.log(`Listening on ${config.port}`)
 })
+
+chokidar.watch(`${root}/src/main/**/*.js`)
+        .on('all', (event, path) => {
+            webpack(require('./mainWebpack.dev'), (err, stats) => {
+                if (err) {
+                    throw err
+                }
+        
+                process.stdout.write(stats.toString({
+                                                        colors      : true,
+                                                        modules     : false,
+                                                        children    : false,
+                                                        chunks      : false,
+                                                        chunkModules: false
+                                                    }) + '\n')
+            })
+        })

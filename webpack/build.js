@@ -2,7 +2,10 @@ const webpack = require('webpack')
 
 const config        = require('./config')
 const root          = require('./root')
-const webpackConfig = require('./webpack.build')
+const webpackConfig = [
+    require('./rendererWebpack.build'),
+    require('./mainWebpack.build')
+]
 
 webpack(webpackConfig, (err, stats) => {
     if (err) {
