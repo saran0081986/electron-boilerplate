@@ -23,7 +23,7 @@ webpackConfig.plugins.push(
             })
             
             const htmlAssetNames = []
-            Object.keys(compilation.assets)
+            Object.keys(assets)
                   .forEach(assetName => {
                       if (assetName.match(/\.html$/)) {
                           htmlAssetNames.push(assetName)
@@ -31,13 +31,12 @@ webpackConfig.plugins.push(
                   })
             
             htmlAssetNames.forEach(htmlAssetName => {
-                                       const asset           = assets[htmlAssetName]
-                                       const processedHtml   = asset.source()
-                                                                    .toString()
-                                                                    .replace('<!--CSS-CHUNKS-LOAD-->', cssChunksLoad)
-                                       assets[htmlAssetName] = new webpackSources.RawSource(processedHtml)
-                                   }
-            )
+                const asset           = assets[htmlAssetName]
+                const processedHtml   = asset.source()
+                                             .toString()
+                                             .replace('<!--CSS-CHUNKS-LOAD-->', cssChunksLoad)
+                assets[htmlAssetName] = new webpackSources.RawSource(processedHtml)
+            })
             
             compileCallback()
         })

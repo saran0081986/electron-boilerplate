@@ -8,9 +8,9 @@ const webpackConfig = require('./webpack.base')
 webpackConfig.output.publicPath = `http://localhost:${config.port}/`
 webpackConfig.output.path       = `${root}/tmp`
 
-for (const name in webpackConfig.entry) {
-    webpackConfig.entry[name] = [`${root}/webpack/server-client`, ...webpackConfig.entry[name]]
-}
+Object.keys(webpackConfig.entry).forEach(key => {
+    webpackConfig.entry[key] = [`${root}/webpack/server-client`, ...webpackConfig.entry[key]]
+})
 
 webpackConfig.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
