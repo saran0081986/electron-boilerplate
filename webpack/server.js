@@ -49,7 +49,7 @@ server.listen(config.port, err => {
 })
 
 chokidar.watch(`${root}/src/main/**/*.js`)
-        .on('all', (event, path) => {
+        .on('all', function () {
             webpack(require('./mainWebpack.dev'), (err, stats) => {
                 if (err) {
                     throw err

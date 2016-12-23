@@ -1,6 +1,6 @@
 const webpackSources = require('webpack-sources')
 
-module.exports = function mainRendererUrlLoadPlugin(url) {
+module.exports = function (url) {
     this.apply = compiler => {
         compiler.plugin('emit', (compilation, compileCallback) => {
             const assets         = compilation.assets

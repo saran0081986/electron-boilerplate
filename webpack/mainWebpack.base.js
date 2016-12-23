@@ -7,7 +7,7 @@ module.exports = {
     target     : 'electron',
     node       : {
         __dirname : false,
-        __filename: false,
+        __filename: false
     },
     entry      : {
         main: `${root}/src/main/index.js`
