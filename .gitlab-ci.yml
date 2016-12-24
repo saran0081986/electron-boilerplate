@@ -6,6 +6,7 @@ stages:
 .build: &build-job
     stage: build
     cache:
+        key: "npm"
         paths:
             - node_modules/
             #- $HOME/.yarn-cache
@@ -44,12 +45,14 @@ sonar:
 
 electron:
     image: node:6
+    allow_failure: true
     stage: pack
     only:
         - tags
     cache:
+        key: "npm"
         paths:
-            - tmp
+            - node_modules/
             #- $HOME/.yarn-cache
     artifacts:
         name: "${CI_BUILD_REF_NAME}-${CI_BUILD_NAME}"
