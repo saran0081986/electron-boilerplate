@@ -1,6 +1,7 @@
 stages:
     - build
     - review
+    - pack
 
 .build: &build-job
     stage: build
@@ -40,3 +41,20 @@ sonar:
         paths:
             - .sonar/
     script: sonar-scanner -D sonar.host.url=http://sonar.flow.local:80 -D sonar.branch=$CI_BUILD_REF_NAME -D sonar.login=$SONAR_TOKEN
+
+electron:
+    image: node:6
+    stage: pack
+    only:
+        - tags
+    cache:
+        paths:
+            - tmp
+            #- $HOME/.yarn-cache
+    artifacts:
+        name: "${CI_BUILD_REF_NAME}-${CI_BUILD_NAME}"
+        paths:
+            - packages/
+    before_script:
+        #- npm install yarn
+    script: npm run pack

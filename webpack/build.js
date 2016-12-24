@@ -1,3 +1,4 @@
+const fs      = require('fs')
 const webpack = require('webpack')
 
 const config        = require('./config')
@@ -19,4 +20,18 @@ webpack(webpackConfig, (err, stats) => {
                                             chunks      : false,
                                             chunkModules: false
                                         }) + '\n')
+})
+
+const packageFile = require(`${root}/package.json`)
+packageFile.main  = 'main.js'
+delete packageFile.scripts.pack
+packageFile.scripts.start = 'electron .'
+delete packageFile.devDependencies
+fs.writeFile(`${config.output}/package.json`, JSON.stringify(packageFile, null, 4))
+fs.readFile(`${root}/yarn.lock`, (err, data) => {
+    if (err) {
+        throw err
+    }
+    
+    fs.writeFile(`${config.output}/yarn.lock`, data)
 })

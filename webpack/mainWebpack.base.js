@@ -13,7 +13,7 @@ module.exports = {
         main: `${root}/src/main/index.js`
     },
     output     : {
-        path      : `${root}/build`,
+        path      : config.output,
         filename  : '[name].js',
         publicPath: config.outputPublicPath
     },
