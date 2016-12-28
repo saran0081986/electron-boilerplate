@@ -2,8 +2,8 @@ const config   = require('./config')
 const packager = require('electron-packager')
 const yarn     = require('yarn-install')
 
-const root          = require('./root')
-let packagerOptions = require(`${root}/pack.json`)
+const root            = require('./root')
+const packagerOptions = require(`${root}/pack.json`)
 
 packagerOptions.dir    = config.output
 packagerOptions.out    = `${root}/packages`
