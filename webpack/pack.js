@@ -2,29 +2,16 @@ const config   = require('./config')
 const packager = require('electron-packager')
 const yarn     = require('yarn-install')
 
-const root = require('./root')
+const root          = require('./root')
+let packagerOptions = require(`${root}/pack.json`)
 
-const packagerOptions = {
-    dir            : config.output,
-    out            : `${root}/packages`,
-    tmpdir         : `${root}/tmp`,
-    platform       : 'win32',
-    arch           : 'x64',
-    asar           : true,
-    ignore         : [
-        '.yarn-integrity',
-        'empty'
-    ],
-    name           : 'electron-boilerplate',
-    icon           : null,
-    'app-copyright': 'Copyright (C) 2016 Maxwellewxam.',
-    win32metadata  : {
-        CompanyName     : 'Maxwellewxam',
-        FileDescription : 'Electron Boilerplate',
-        InternalName    : null,
-        OriginalFilename: 'electron-boilerplate.exe',
-        ProductName     : 'Electron Boilerplate'
-    }
+packagerOptions.dir    = config.output
+packagerOptions.out    = `${root}/packages`
+packagerOptions.tmpdir = `${root}/tmp`
+if (packagerOptions.icon === '') {
+    packagerOptions.icon = null
+} else {
+    packagerOptions.icon = `${root}/${packagerOptions.icon}`
 }
 
 const yarnResult = yarn({cwd: config.output})

@@ -1,18 +1,18 @@
 {
     "name": "electron-boilerplate",
-    "description": "Electron Boilerplate (based on Front Boilerplate 4.1.1)",
+    "description": "Electron Boilerplate (based on Front Boilerplate 4.1.2)",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/Maxwellewxam/electron-boilerplate.git"
     },
-    "version": "1.1.2",
+    "version": "1.1.3",
     "main": "build/main.js",
     "scripts": {
         "build": "cross-env NODE_ENV=production node webpack/build.js",
         "clean": "del-cli build/* !build/empty tmp",
         "dev": "cross-env NODE_ENV=development node webpack/server.js",
         "pack": "cross-env NODE_ENV=production node webpack/pack.js",
-        "start": "electron ./build"
+        "start": "electron ."
     },
     "author": "Maxwellewxam <maxwellewxamofficial@gmail.com>",
     "license": "ISC",

@@ -10,3 +10,7 @@ electron.app.on('ready', () => {
         appWindow = null
     })
 })
+
+electron.app.on('window-all-closed', () => {
+    electron.app.quit()
+})
