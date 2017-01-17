@@ -6,7 +6,6 @@ const root = require('./root')
 const webpackConfig = require('./rendererWebpack.base')
 
 webpackConfig.output.publicPath = `http://localhost:${config.port}/`
-webpackConfig.output.path       = `${root}/tmp`
 
 Object.keys(webpackConfig.entry)
       .forEach(key => {

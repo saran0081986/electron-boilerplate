@@ -1,6 +1,7 @@
-const webpack        = require('webpack')
-const config         = require('./config')
-const rendererConfig = require('./rendererConfig')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const webpack           = require('webpack')
+const config            = require('./config')
+const rendererConfig    = require('./rendererConfig')
 
 const root    = require('./root')
 const postcss = [
@@ -11,7 +12,7 @@ const postcss = [
 ]
 const loaders = {
     html: [
-        'file-loader?name=[name].html',
+        `file-loader?context=${root}/src/renderer&name=[path][name].html`,
         `extract-loader?publicPath=${config.outputPublicPath}`
     ],
     css : [
@@ -81,10 +82,24 @@ module.exports = {
             }
         }),
         new webpack.WatchIgnorePlugin([
-            `${root}/build/`,
+            config.output,
             `${root}/node_modules/`,
             `${root}/webpack/`
-        ])
+        ]),
+        new CopyWebpackPlugin([ 
+            { 
+                from   : { 
+                    glob: `${root}/src/renderer/static/**/*`, 
+                    dot : true 
+                }, 
+                to     : config.output, 
+                context: `${root}/src/renderer/static` 
+            } 
+        ], { 
+            ignore: [ 
+                'empty' 
+            ] 
+        })
     ],
     devServer  : {
         headers: {'Access-Control-Allow-Origin': '*'}

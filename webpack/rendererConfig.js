@@ -1,5 +1,6 @@
 const glob = require('glob')
 
+const config    = require('./config')
 const root      = require('./root')
 const htmlFiles = glob.sync(`${root}/src/renderer/*.@(html|pug)`)
 
@@ -8,7 +9,7 @@ module.exports = {
     entry             : {
         app: [`${root}/src/renderer/js/app.js`, ...htmlFiles]
     },
-    output            : `${root}/build/renderer`,
+    output            : `${config.output}/renderer`,
     historyApiFallback: false,
     loaders           : {
         sass: {
