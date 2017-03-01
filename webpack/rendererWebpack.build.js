@@ -44,9 +44,9 @@ webpackConfig.plugins.push(
 )
 
 webpackConfig.module.rules.forEach(rule => {
-    if (rule.loaders && rule.loaders.includes('css-loader')) {
-        rule.loader = ExtractTextPlugin.extract(rule.loaders)
-        delete rule['loaders']
+    if (rule.use && rule.use.includes('css-loader')) {
+        rule.loader = ExtractTextPlugin.extract({use: rule.use})
+        delete rule['use']
     }
     if (rule.loader && rule.loader === 'url-loader') {
         rule.query.name = '../' + rule.query.name

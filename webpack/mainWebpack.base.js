@@ -9,6 +9,7 @@ module.exports = {
         __dirname : false,
         __filename: false
     },
+    externals: [require('webpack-node-externals')()],
     entry      : {
         main: `${root}/src/main/index.js`
     },

@@ -13,11 +13,17 @@ const postcss = [
 const loaders = {
     html: [
         `file-loader?context=${root}/src/renderer&name=[path][name].html`,
-        `extract-loader?publicPath=${config.outputPublicPath}`
+        `extract-loader?publicPath=${config.outputPublicPath}`,
+        'html-loader'
     ],
     css : [
         'css-loader',
-        'postcss-loader'
+        {
+            loader : 'postcss-loader',
+            options: {
+                plugins: () => postcss
+            }
+        }
     ]
 }
 
@@ -37,12 +43,18 @@ module.exports = {
                 exclude: [/node_modules/]
             },
             {
-                test   : /\.scss$/,
-                loaders: [...loaders.css, 'sass-loader']
+                test: /\.scss$/,
+                use : [
+                    ...loaders.css,
+                    {
+                        loader : 'sass-loader',
+                        options: rendererConfig.loaders.sass
+                    }
+                ]
             },
             {
-                test   : /\.css$/,
-                loaders: loaders.css
+                test: /\.css$/,
+                use : loaders.css
             },
             {
                 test  : /\.(png|jpg|gif|svg)$/,
@@ -65,22 +77,16 @@ module.exports = {
                 loader: 'json-loader'
             },
             {
-                test   : /\.pug$/,
-                loaders: [...loaders.html, 'pug-html-loader?pretty=    ']
+                test: /\.pug$/,
+                use : [...loaders.html, 'pug-html-loader?pretty=    ']
             },
             {
-                test   : /\.html$/,
-                loaders: [...loaders.html, 'html-loader']
+                test: /\.html$/,
+                use : loaders.html
             }
         ]
     },
     plugins    : [
-        new webpack.LoaderOptionsPlugin({
-            options: {
-                postcss,
-                sassLoader: rendererConfig.loaders.sass
-            }
-        }),
         new webpack.WatchIgnorePlugin([
             config.output,
             `${root}/node_modules/`,

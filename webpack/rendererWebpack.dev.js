@@ -14,12 +14,12 @@ Object.keys(webpackConfig.entry)
 
 webpackConfig.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin()
 )
 
 webpackConfig.module.rules.forEach(rule => {
-    if (rule.loaders && rule.loaders.includes('css-loader')) {
-        rule.loaders = ['style-loader', ...rule.loaders]
+    if (rule.use && rule.use.includes('css-loader')) {
+        rule.use = ['style-loader', ...rule.use]
     }
 })
 
