@@ -8,10 +8,10 @@ const ImageminPlugin = require('imagemin-webpack-plugin').default
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 
 /**
- * Common configuration variables.
+ * Renderer configuration variables.
  * @type {Object}
  */
-const config = require('./config')
+const rendererConfig = require('./rendererConfig')
 /**
  * Renderer base webpack configuration.
  * @type {Object}
@@ -50,7 +50,7 @@ webpackConfig.plugins.push(
       compileCallback()
     })
   },
-  new ImageminPlugin(config.optimize.imagemin),
+  new ImageminPlugin(rendererConfig.optimize.imagemin),
   new ProgressBarPlugin()
 )
 
