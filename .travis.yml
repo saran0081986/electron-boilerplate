@@ -1,0 +1,23 @@
+language: node_js
+node_js:
+  - 6 # LTS NodeJS version.
+  - 7 # Stable NodeJS version, optional.
+matrix:
+  allow_failures:
+    - node_js: 7
+
+addons:
+  # Code Climate coverage reporting.
+  code_climate:
+    repo_token: $CODECLIMATE_TOKEN
+
+cache: yarn
+
+script:
+  - npm run build
+  - npm test
+
+after_success:
+  # Code Climate coverage reporting.
+  - npm install -g codeclimate-test-reporter
+  - codeclimate-test-reporter < coverage/renderer/lcov.info

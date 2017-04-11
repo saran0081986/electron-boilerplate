@@ -1,16 +1,19 @@
-const electron = require('electron')
+import electron from 'electron'
 
 let appWindow
 
 electron.app.on('ready', () => {
-    appWindow = new electron.BrowserWindow()
-    appWindow.loadURL(/*RENDERER-URL-LOAD*/)
-    
-    appWindow.on('closed', () => {
-        appWindow = null
-    })
+  // eslint-disable-next-line
+  /*INJECT-DEVTOOLS-INSTALLER*/
+
+  appWindow = new electron.BrowserWindow()
+  appWindow.loadURL(/*INJECT-RENDERER-URL*/)
+
+  appWindow.on('closed', () => {
+    appWindow = null
+  })
 })
 
 electron.app.on('window-all-closed', () => {
-    electron.app.quit()
+  electron.app.quit()
 })

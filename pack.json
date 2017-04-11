@@ -1,19 +1,19 @@
 {
-    "platform"     : "win32",
-    "arch"         : "x64",
-    "asar"         : true,
-    "ignore"       : [
-        ".yarn-integrity",
-        "empty"
-    ],
-    "name"         : "electron-boilerplate",
-    "icon"         : "",
-    "app-copyright": "Copyright (C) 2016 Maxwellewxam.",
-    "win32metadata": {
-        "CompanyName"     : "Maxwellewxam",
-        "FileDescription" : "Electron Boilerplate",
-        "InternalName"    : "",
-        "OriginalFilename": "electron-boilerplate.exe",
-        "ProductName"     : "Electron Boilerplate"
-    }
+  "platform": "win32",
+  "arch": "x64",
+  "asar": true,
+  "ignore": [
+    ".yarn-integrity",
+    "empty"
+  ],
+  "name": "electron-boilerplate",
+  "icon": "",
+  "app-copyright": "Copyright (C) 2017 Maxwellewxam.",
+  "win32metadata": {
+    "CompanyName": "Maxwellewxam",
+    "FileDescription": "Electron Boilerplate",
+    "InternalName": "",
+    "OriginalFilename": "electron-boilerplate.exe",
+    "ProductName": "Electron Boilerplate"
+  }
 }
