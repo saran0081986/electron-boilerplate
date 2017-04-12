@@ -19,9 +19,9 @@ stages:
     # Yarn is not used because it hangs during packages installation.
     #- npm -q install yarn
     #- ./node_modules/.bin/yarn
-    - npm -q update
+    #- npm -q update
   script:
-    - npm run build
+    #- npm run build
 
 # LTS NodeJS version.
 build:node-6:
@@ -61,7 +61,7 @@ test:
     # Cache is not effective, temporary solution,
     # see https://forum.gitlab.com/t/cache-not-working/5694.
     - npm -q update
-    - apt-get update && apt-get install -y xvfb
+    - apt-get update && apt-get install -y xvfb libgtk2.0-0
     - export DISPLAY=:99.0
   script: npm test
 
