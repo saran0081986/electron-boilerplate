@@ -136,8 +136,8 @@ pack:
   stage: pack
   only:
     - tags
-  dependencies:
-    - build:node-6
+  dependencies: []
+    #- build:node-6
   artifacts: # Exports packages.
     name: "${CI_BUILD_REF_NAME}-${CI_BUILD_NAME}"
     paths:
