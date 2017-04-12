@@ -20,7 +20,7 @@ stages:
     #- npm -q install yarn
     #- ./node_modules/.bin/yarn
     #- npm -q update
-  script:
+  script: echo "lol"
     #- npm run build
 
 # LTS NodeJS version.
