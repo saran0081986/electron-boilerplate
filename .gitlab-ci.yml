@@ -61,6 +61,7 @@ test:
     # Cache is not effective, temporary solution,
     # see https://forum.gitlab.com/t/cache-not-working/5694.
     - npm -q update
+    - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
   script: npm test
 
 ####################
