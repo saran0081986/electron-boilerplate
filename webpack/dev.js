@@ -78,7 +78,7 @@ server.listen(config.port, err => {
 // Rebuilds main on modifications.
 chokidar.watch(`${root}/src/main/**/*.js`)
         .on('all', () => {
-          webpack(mainWebpackConfig, (err, stats) => {
+          webpack(mainWebpackConfig, err => {
             if (err) {
               throw err
             }
