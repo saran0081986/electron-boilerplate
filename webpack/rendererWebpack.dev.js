@@ -43,7 +43,7 @@ webpackConfig.plugins.push(
       function (error) { // StyleLint transformer.
         // Detects if error is thrown by StyleLint, may be unstable.
         if (typeof error.webpackError === 'string' &&
-          (error.webpackError.indexOf('css') !== -1 || error.webpackError.indexOf('scss') !== -1 )) {
+          (error.webpackError.indexOf('css') !== -1 || error.webpackError.indexOf('scss') !== -1)) {
           return Object.assign({}, error, {
             name: 'StyleLint error',
             type: 'stylelint-error'
