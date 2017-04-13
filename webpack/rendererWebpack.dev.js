@@ -59,9 +59,8 @@ webpackConfig.plugins.push(
         if (styleLintErrors.length > 0) {
           const flatten = (accum, curr) => accum.concat(curr)
           return concat(
-            styleLintErrors
-            .map(error => [error.webpackError, ''])
-            .reduce(flatten, [])
+            styleLintErrors.map(error => [error.webpackError, ''])
+                           .reduce(flatten, [])
           )
         }
         return []
