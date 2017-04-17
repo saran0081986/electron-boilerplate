@@ -13,6 +13,7 @@ const root = require('./root')
  */
 const webpackConfig = require('./rendererWebpack.base')
 
+delete webpackConfig.target
 delete webpackConfig.entry
 delete webpackConfig.output
 delete webpackConfig.plugins
@@ -39,3 +40,7 @@ webpackConfig.module.rules.push(
     },
     exclude: [/node_modules/]
   })
+
+webpackConfig.performance.hints = false
+
+module.exports = webpackConfig

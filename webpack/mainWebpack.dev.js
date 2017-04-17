@@ -30,7 +30,9 @@ webpackConfig.plugins.push(
     },
     {
       comment: '/*INJECT-DEVTOOLS-INSTALLER*/',
-      data: `require('electron').BrowserWindow.addDevToolsExtension('${path.normalize(root + '/node_modules/devtron').replace(/\\/g, '\\\\')}')
+      data: `require('electron').BrowserWindow
+                                .addDevToolsExtension(
+                                  '${path.normalize(root + '/node_modules/devtron').replace(/\\/g, '\\\\')}')
              const edi = require('electron-devtools-installer')`
     }
   ]),
