@@ -33,7 +33,7 @@ const mainWebpackConfig = require('./mainWebpack.dev.js')
 const root = require('./root')
 
 // Reloads browser if updated file is HTML.
-rendererWebpackConfig.plugins.push(function () { // Plugins need to be instantiable.
+rendererWebpackConfig.plugins.push(function () {
   this.plugin('after-emit', (compilation, compileCallback) => {
     for (const assetName in compilation.assets) {
       if (compilation.assets.hasOwnProperty(assetName) &&

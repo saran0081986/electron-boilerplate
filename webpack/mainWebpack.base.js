@@ -21,7 +21,7 @@ module.exports = {
   },
   externals: [require('webpack-node-externals')()], // Do not export node dependencies.
   entry: {
-    main: `${root}/src/main/index.js`
+    index: `${root}/src/main/index.js`
   },
   output: {
     path: config.output,

@@ -22,7 +22,7 @@ const htmlFiles = glob.sync(`${root}/src/renderer/*.@(html|pug)`)
 module.exports = {
   browsers: ['Chrome >= 56'], // Electron's browser compatibility.
   entry: {
-    app: [`${root}/src/renderer/js/app.js`, ...htmlFiles] // Adds HTML files (or equivalent) as entry points.
+    index: [`${root}/src/renderer/js/index.js`, ...htmlFiles] // Adds HTML files (or equivalent) as entry points.
   },
   output: `${config.output}/renderer`,
   historyApiFallback: false,

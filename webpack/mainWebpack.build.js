@@ -2,10 +2,7 @@
  * @file Main build webpack configuration.
  */
 
-/**
- * Plugin used to set the renderer window url in main.
- */
-const MainDataInjectorPlugin = require('./mainDataInjectorPlugin')
+const DataInjectorPlugin = require('./dataInjectorPlugin')
 
 /**
  * Main base webpack configuration.
@@ -14,11 +11,11 @@ const MainDataInjectorPlugin = require('./mainDataInjectorPlugin')
 const webpackConfig = require('./mainWebpack.base')
 
 webpackConfig.plugins.push(
-  new MainDataInjectorPlugin([
+  new DataInjectorPlugin('index.js', [
     {
       comment: '/*INJECT-RENDERER-URL*/',
       // eslint-disable-next-line
-      data: '`file:///${__dirname}/renderer/app.html`'
+      data: '`file:///${__dirname}/renderer/index.html`'
     }
   ])
 )

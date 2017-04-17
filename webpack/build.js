@@ -45,7 +45,7 @@ webpack(webpackConfig, (err, stats) => {
 
 // Copies package.json file.
 const packageFile = require(`${root}/package.json`)
-packageFile.main = 'main.js'
+packageFile.main = 'index.js'
 packageFile.scripts = {
   start: 'electron .'
 }

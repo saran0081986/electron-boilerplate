@@ -56,7 +56,26 @@ module.exports = {
         ]
       }
     ],
-    'at-rule-no-unknown': true,
+    'at-rule-no-unknown': [
+      true,
+      {
+        ignoreAtRules: [
+          'import',
+          'media',
+          'extend',
+          'at-root',
+          'debug',
+          'warn',
+          'error',
+          'if',
+          'for',
+          'each',
+          'while',
+          'mixin',
+          'include'
+        ]
+      }
+    ],
     'at-rule-no-vendor-prefix': true,
     'block-closing-brace-newline-after': [
       'always-multi-line',
@@ -76,17 +95,18 @@ module.exports = {
     'max-line-length': 120,
     'max-nesting-depth': 4,
     'media-feature-name-no-vendor-prefix': true,
+    'number-leading-zero': 'never',
     'property-no-vendor-prefix': true,
     'selector-attribute-quotes': 'always',
     'selector-class-pattern': [
-      '^(_)?[a-z]+-[a-z0-9-]+((_{2}|-{2})?[a-z0-9-]+)?(-{2}[a-z0-9-]+)?[a-z0-9]$',
+      '^(_)?[a-z]+-[a-z0-9-]+((__|--)?[a-z0-9-]+)?(--[a-z0-9-]+)?[a-z0-9]$',
       {
         resolveNestedSelectors: true
       }
     ],
     'selector-id-pattern': '^[a-z][-a-z0-9]*$',
     'selector-max-compound-selectors': 3,
-    'selector-nested-pattern': '^((_{2}|-{2})?[a-z0-9-]+)?(-{2}[a-z0-9-]+)?[a-z0-9]$',
+    'selector-nested-pattern': '^&((__|--|::)?[a-z0-9-]+)?((--|::)[a-z0-9-]+)?[a-z0-9]$',
     'selector-no-attribute': true,
     'selector-no-id': true,
     'selector-no-vendor-prefix': true,

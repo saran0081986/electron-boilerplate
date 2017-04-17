@@ -68,6 +68,17 @@ test:
 # REVIEW
 ####################
 
+# Lint
+######
+#lint:
+#  image: node:6
+#  stage: review
+#  dependencies: []
+  #allow_failure: true
+#  before_script:
+#    - npm -q install eslint eslint-config-standard eslint-plugin-import eslint-plugin-node eslint-plugin-promise eslint-plugin-standard htmlhint pug-lint stylelint stylelint-config-standard stylelint-order stylelint-scss
+#  script: npm run lint
+
 # SonarQube
 ###########
 .sonarqube: &sonarqube-job

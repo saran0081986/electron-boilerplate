@@ -8,7 +8,7 @@
   ],
   "name": "electron-boilerplate",
   "icon": "",
-  "app-copyright": "Copyright (C) 2017 Maxwellewxam.",
+  "appCopyright": "Copyright (C) 2017 Maxwellewxam.",
   "win32metadata": {
     "CompanyName": "Maxwellewxam",
     "FileDescription": "Electron Boilerplate",

@@ -2,21 +2,16 @@
  * @file Renderer karma runner configuration.
  */
 
-const path = require('path')
-
-// Retrieves the development webpack configuration.
-const webpackRules = require('./webpack/rendererWebpack.dev').module.rules
-// Add coverage report generation configuration.
-webpackRules.push({
-  enforce: 'post',
-  test: /\.js$/,
-  loader: 'istanbul-instrumenter-loader',
-  include: path.resolve('src/renderer/js/'),
-  exclude: [/node_modules/]
-})
+/**
+ * Renderer testing webpack configuration.
+ * @type {Object}
+ */
+const webpack = require('./webpack/rendererWebpack.test')
 
 module.exports = config => {
   config.set({
+    // Webpack configuration.
+    webpack,
     // Base path that will be used to resolve all patterns (eg. files, exclude).
     basePath: '',
     // Frameworks to use.
@@ -33,13 +28,6 @@ module.exports = config => {
     preprocessors: {
       'tests/renderer/**/*.spec.js': ['electron', 'webpack']
     },
-    // Webpack configuration.
-    webpack: {
-      devtool: 'inline-source-map',
-      module: {
-        rules: webpackRules
-      }
-    },
     // Webpack middleware configuration.
     webpackMiddleware: {
       noInfo: true,
@@ -55,7 +43,7 @@ module.exports = config => {
       // Clover: used by SonarQube.
       // lcov: used by Code Climate.
       reports: ['clover', 'lcovonly', 'html'],
-      dir: path.join(__dirname, 'coverage/renderer'),
+      dir: 'coverage/renderer',
       'report-config': {
         html: {
           subdir: 'html'
