@@ -10,11 +10,6 @@ stages:
 ####################
 .build: &build-job
   stage: build
-  cache: # Used to transmit dependencies amongst jobs.
-    key: npm
-    paths:
-      - node_modules/
-      #- $HOME/.yarn-cache
   before_script:
     # Yarn is not used because it hangs during packages installation.
     #- npm -q install yarn
@@ -25,8 +20,13 @@ stages:
 
 # LTS NodeJS version.
 build:node-6:
-  image: node:6
   <<: *build-job
+  image: node:6
+  cache: # Used to transmit dependencies amongst jobs.
+    key: npm:node-6
+    paths:
+      - node_modules/
+      #- $HOME/.yarn-cache
   artifacts: # Exports the build.
     name: "${CI_COMMIT_REF_NAME}-${CI_JOB_NAME}"
     paths:
@@ -36,9 +36,14 @@ build:node-6:
 
 # Stable NodeJS version, optional.
 build:node-7:
+  <<: *build-job
   image: node:7
   allow_failure: true
-  <<: *build-job
+  cache: # Used to transmit dependencies amongst jobs.
+    key: npm:node-7
+    paths:
+      - node_modules/
+      #- $HOME/.yarn-cache
 
 
 ####################
@@ -48,7 +53,7 @@ test:
   image: maxwellewxam/headless-electron-runner
   stage: test
   cache: # Retrieves dependencies.
-    key: npm
+    key: npm:node-6
     paths:
       - node_modules/
   dependencies: []
@@ -58,9 +63,7 @@ test:
       - coverage/
     expire_in: 1h
   before_script:
-    # Cache is not effective, temporary solution,
-    # see https://forum.gitlab.com/t/cache-not-working/5694.
-    - npm -q update
+    - npm -q install
     - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
   script: npm test
 

@@ -1,5 +1,5 @@
 # Electron Boilerplate
-Based on [Front Boilerplate 4.3.5](https://github.com/Maxwellewxam/front-boilerplate/releases/tag/4.3.5).
+Based on [Front Boilerplate 4.3.6](https://github.com/Maxwellewxam/front-boilerplate/releases/tag/4.3.6).
 
 [![GitHub release](https://img.shields.io/github/release/Maxwellewxam/electron-boilerplate.svg?style=flat-square)](https://github.com/Maxwellewxam/electron-boilerplate/releases)
 [![Travis](https://img.shields.io/travis/Maxwellewxam/electron-boilerplate.svg?style=flat-square)](https://travis-ci.org/Maxwellewxam/electron-boilerplate)
