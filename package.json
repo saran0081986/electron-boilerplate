@@ -87,6 +87,6 @@
     "yarn-install": "^0.2.1"
   },
   "dependencies": {
-    "electron": "1.6.2"
+    "electron": "1.6.5"
   }
 }
