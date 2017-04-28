@@ -14,7 +14,7 @@ stages:
     # Yarn is not used because it hangs during packages installation.
     #- npm -q install yarn
     #- ./node_modules/.bin/yarn
-    - npm -q update
+    - npm -q install
   script:
     - npm run build
 
@@ -64,7 +64,7 @@ test:
     expire_in: 1h
   before_script:
     - npm -q install
-    - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 +extension RANDR &
+    - Xvfb :99 -screen 0 1024x768x24 +extension RANDR > /dev/null 2>&1 &
   script: npm test
 
 ####################

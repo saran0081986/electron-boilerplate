@@ -2,6 +2,8 @@
  * @file StyleLint configuration.
  */
 
+const namingRegex = /^[a-z]+((__|--)?[a-z0-9-]+)*$/
+
 module.exports = {
   extends: 'stylelint-config-standard',
   plugins: [
@@ -16,9 +18,9 @@ module.exports = {
     'order/properties-order': [
       [
         {
-          emptyLineBefore: 'never',
           properties: [
             'position',
+            'float',
             'top',
             'right',
             'bottom',
@@ -26,7 +28,6 @@ module.exports = {
           ]
         },
         {
-          emptyLineBefore: 'always',
           properties: [
             'display',
             'width',
@@ -68,11 +69,15 @@ module.exports = {
           'warn',
           'error',
           'if',
+          'else',
           'for',
           'each',
           'while',
           'mixin',
-          'include'
+          'include',
+          'function',
+          'content',
+          'return'
         ]
       }
     ],
@@ -87,11 +92,18 @@ module.exports = {
       }
     ],
     'color-named': 'never',
+    'declaration-colon-newline-after': null,
     'declaration-colon-space-after': null,
     'declaration-no-important': true,
     'font-family-name-quotes': 'always-unless-keyword',
     'function-url-no-scheme-relative': true,
     'function-url-quotes': 'always',
+    'indentation': [
+      2,
+      {
+        ignore: ['value']
+      }
+    ],
     'max-line-length': 120,
     'max-nesting-depth': 4,
     'media-feature-name-no-vendor-prefix': true,
@@ -99,14 +111,12 @@ module.exports = {
     'property-no-vendor-prefix': true,
     'selector-attribute-quotes': 'always',
     'selector-class-pattern': [
-      '^(_)?[a-z]+-[a-z0-9-]+((__|--)?[a-z0-9-]+)?(--[a-z0-9-]+)?[a-z0-9]$',
+      /^(_)?[a-z]+-[a-z0-9-]+((__|--)?[a-z0-9-]+)?(--[a-z0-9-]+)?[a-z0-9]$/,
       {
         resolveNestedSelectors: true
       }
     ],
-    'selector-id-pattern': '^[a-z][-a-z0-9]*$',
     'selector-max-compound-selectors': 3,
-    'selector-nested-pattern': '^&((__|--|::)?[a-z0-9-]+)?((--|::)[a-z0-9-]+)?[a-z0-9]$',
     'selector-no-attribute': true,
     'selector-no-id': true,
     'selector-no-vendor-prefix': true,
@@ -121,13 +131,13 @@ module.exports = {
     ],
     'scss/at-if-closing-brace-newline-after': 'always-last-in-chain',
     'scss/at-if-closing-brace-space-after': 'always-intermediate',
-    'scss/at-function-pattern': '^[a-z][-a-z0-9]*$',
+    'scss/at-function-pattern': namingRegex,
     'scss/at-mixin-argumentless-call-parentheses': 'never',
-    'scss/at-mixin-pattern': '^[a-z][-a-z0-9]*$',
+    'scss/at-mixin-pattern': namingRegex,
     'scss/declaration-nested-properties-no-divided-groups': true,
-    'scss/dollar-variable-pattern': '^[a-z][-a-z0-9]*$',
+    'scss/dollar-variable-pattern': namingRegex,
     'scss/operator-no-unspaced': true,
-    'scss/percent-placeholder-pattern': '^[a-z][-a-z0-9]*$',
+    'scss/percent-placeholder-pattern': namingRegex,
     'scss/selector-no-redundant-nesting-selector': true
   }
 }
