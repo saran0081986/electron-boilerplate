@@ -22,5 +22,5 @@ script:
 
 after_success:
   # Code Climate coverage reporting.
-  - npm install -g codeclimate-test-reporter
+  - npm install -g -q codeclimate-test-reporter
   - codeclimate-test-reporter < coverage/renderer/lcov.info
