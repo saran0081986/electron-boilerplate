@@ -84,7 +84,7 @@
     "webpack-hot-middleware": "^2.17.1",
     "webpack-node-externals": "^1.5.4",
     "webpack-sources": "^0.2.3",
-    "yarn-install": "^0.2.1"
+    "yarn-install": "^0.3.0"
   },
   "dependencies": {
     "electron": "1.6.6"
