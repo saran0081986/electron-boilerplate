@@ -103,7 +103,15 @@ module.exports = {
       },
       {
         test: /\.pug$/,
-        use: [...loaders.html, 'pug-html-loader?pretty=  ']
+        use: [
+          ...loaders.html,
+          {
+            loader: 'pug-html-loader',
+            options: {
+              pretty: '  '
+            }
+          }
+        ]
       },
       {
         test: /\.html$/,

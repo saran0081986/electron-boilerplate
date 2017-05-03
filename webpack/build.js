@@ -50,7 +50,7 @@ packageFile.scripts = {
   start: 'electron .'
 }
 delete packageFile.devDependencies
-fs.writeFile(`${config.output}/package.json`, JSON.stringify(packageFile, null, 4))
+fs.writeFile(`${config.output}/package.json`, JSON.stringify(packageFile, null, 2))
 // Copies yarn.lock file.
 fs.readFile(`${root}/yarn.lock`, (err, data) => {
   if (err) {

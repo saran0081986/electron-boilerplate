@@ -1,5 +1,5 @@
 # Electron Boilerplate
-Based on [Front Boilerplate 4.3.6](https://github.com/Maxwellewxam/front-boilerplate/releases/tag/4.3.6).
+Based on [Front Boilerplate 4.3.7](https://github.com/Maxwellewxam/front-boilerplate/releases/tag/4.3.7).
 
 [![GitHub release](https://img.shields.io/github/release/Maxwellewxam/electron-boilerplate.svg?style=flat-square)](https://github.com/Maxwellewxam/electron-boilerplate/releases)
 [![Travis](https://img.shields.io/travis/Maxwellewxam/electron-boilerplate.svg?style=flat-square)](https://travis-ci.org/Maxwellewxam/electron-boilerplate)
@@ -27,13 +27,12 @@ This project provides integrations with:
   - [SonarQube](http://sonarqube.org)
   - [Electron](http://electron.atom.io)
 
-
-For [VueJS](http://vuejs.org) see [these modifications](http://gist.github.com/Maxwellewxam/1c000503b2e6a585ce34991c414c8c30). 
- 
+It can be adapted for:
+  - [VueJS](http://vuejs.org) ([Gist](http://gist.github.com/Maxwellewxam/1c000503b2e6a585ce34991c414c8c30))
 
 ## Configuration
 If not using tests:
-  - remove 'test' script in 'package.json'
+  - remove testing related uses in CI files
   - remove following dependencies:
     - babel-register
     - electron-mocha
@@ -45,7 +44,6 @@ If not using tests:
     - karma-mocha-reporter
     - karma-webpack
     - mocha
-  - remove 'tests' folder, 'karma.renderer.conf.js' and 'mocha-main.opts' files
 
 Remove commented paths in:
   - .eslintignore
