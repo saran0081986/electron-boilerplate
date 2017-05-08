@@ -19,6 +19,13 @@ const root = require('./root')
  */
 const htmlFiles = glob.sync(`${root}/src/renderer/*.@(html|pug)`)
 
+const uglifyjs = {
+  compress: {
+    warnings: false
+  },
+  comments: false
+}
+
 module.exports = {
   browsers: ['Chrome >= 56'], // Electron's browser compatibility.
   entry: {
@@ -38,6 +45,21 @@ module.exports = {
     }
   },
   optimize: {
+    cssnano: {
+      safe: true
+    },
+    htmlminifier: {
+      collapseBooleanAttributes: true,
+      collapseWhitespace: true,
+      html5: true,
+      minifyCSS: true,
+      minifyJS: uglifyjs,
+      processConditionalComments: true,
+      quoteCharacter: '"',
+      removeComments: true,
+      removeEmptyAttributes: true,
+      removeRedundantAttributes: true
+    },
     imagemin: {
       gifsicle: {
         interlaced: true,
@@ -52,6 +74,7 @@ module.exports = {
       svgo: {
         optimizationLevel: 5
       }
-    }
+    },
+    uglifyjs
   }
 }
