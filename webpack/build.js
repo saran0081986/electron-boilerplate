@@ -52,10 +52,10 @@ packageFile.scripts = {
 delete packageFile.devDependencies
 fs.writeFile(`${config.output}/package.json`, JSON.stringify(packageFile, null, 2))
 // Copies yarn.lock file.
-fs.readFile(`${root}/yarn.lock`, (err, data) => {
+/* fs.readFile(`${root}/yarn.lock`, (err, data) => {
   if (err) {
     throw err
   }
 
   fs.writeFile(`${config.output}/yarn.lock`, data)
-})
+}) */

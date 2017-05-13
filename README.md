@@ -45,6 +45,8 @@ If not using tests:
     - karma-webpack
     - mocha
 
+Uncomment 'yarn.lock' file copy in `webpack/build.js`.
+
 Remove commented paths in:
   - .eslintignore
   - .stylelintignore
