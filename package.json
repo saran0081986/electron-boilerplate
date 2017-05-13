@@ -15,7 +15,7 @@
     "dev": "cross-env NODE_ENV=development node webpack/dev.js",
     "pack": "cross-env NODE_ENV=production node webpack/pack.js",
     "start": "electron .",
-    "test": "cross-env NODE_ENV=test \"electron-mocha --opts mocha-main.opts ./tests/main && karma start karma.renderer.conf.js\"",
+    "test": "cross-env-shell NODE_ENV=test \"electron-mocha --opts mocha-main.opts ./tests/main && karma start karma.renderer.conf.js\"",
     "lint": "eslint --max-warnings 0 src/**/*.js tests/**/*.spec.js && stylelint src/**/*.css src/**/*.scss && pug-lint src && htmlhint src/**/*.html"
   },
   "devDependencies": {
