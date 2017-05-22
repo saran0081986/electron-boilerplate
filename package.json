@@ -71,7 +71,7 @@
     "pug-html-loader": "^1.1.1",
     "pug-lint-loader": "^0.0.4",
     "sass-loader": "^6.0.2",
-    "style-loader": "^0.17.0",
+    "style-loader": "^0.18.0",
     "stylelint": "^7.10.1",
     "stylelint-config-standard": "^16.0.0",
     "stylelint-order": "^0.4.3",
