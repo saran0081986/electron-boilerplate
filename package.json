@@ -82,7 +82,7 @@
     "webpack-dev-server": "^2.4.1",
     "webpack-hot-middleware": "^2.17.1",
     "webpack-node-externals": "^1.5.4",
-    "webpack-sources": "^0.2.3",
+    "webpack-sources": "^1.0.0",
     "yarn-install": "^0.3.0"
   },
   "dependencies": {
