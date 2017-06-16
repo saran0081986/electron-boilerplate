@@ -34,7 +34,7 @@
     "del-cli": "^1.0.0",
     "devtron": "^1.4.0",
     "electron-devtools-installer": "^2.2.0",
-    "electron-mocha": "^3.4.0",
+    "electron-mocha": "^4.0.0",
     "electron-packager": "^8.5.2",
     "eslint": "^3.19.0",
     "eslint-config-standard": "^10.2.0",
