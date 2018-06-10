@@ -1,4 +1,4 @@
-# Electron Boilerplate
+# Electron Boilerplate - TEMPORARILY NOT MAINTAINED (10/06/2018)
 Based on [Front Boilerplate 4.3.8](https://github.com/Maxwellewxam/front-boilerplate/releases/tag/4.3.8).
 
 [![GitHub release](https://img.shields.io/github/release/Maxwellewxam/electron-boilerplate.svg?style=flat-square)](https://github.com/Maxwellewxam/electron-boilerplate/releases)
